@@ -1,0 +1,8 @@
+-r ./VMAP/requirements.txt
+
+locust
+tqdm
+pyflakes
+black
+tblib
+coverage
