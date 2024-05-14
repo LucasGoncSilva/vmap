@@ -1,0 +1,51 @@
+name: Django Stress Testing
+
+on: [push, fork, pull_request]
+
+env:
+  SECRET_KEY: ${{ secrets.SECRET_KEY }}
+  ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+  DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
+  EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
+  EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+
+jobs:
+  loadtest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      - name: Install Python and Pip
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.12"
+
+      - name: Install Locust
+        run: |
+          pip install --upgrade pip
+          pip install locust
+
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Build and Run Docker Compose
+        run: |
+          docker compose -f docker-compose-load.yml up -d
+
+      - name: Run Locust
+        continue-on-error: true
+        if: always()
+        run: |
+          python -c "import time; time.sleep(180)"
+          locust --headless -f loadtests/stress_test.py -H http://localhost:8000 --processes -1 --csv report/csv/stress/stress --html report/html/stress.html
+
+      - name: Upload Locust Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: stresstest-result
+          path: report/html/stress.html
