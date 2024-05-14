@@ -1,0 +1,49 @@
+# docker stop $(docker ps -a -q); docker rm $(docker ps -a -q); docker rmi $(docker images -a -q)
+# docker compose -f docker-compose-unittest.yml up
+
+services:
+  web:
+    build: .
+    command: >
+      bash -c "
+      pip install tqdm tblib
+      && python manage.py collectstatic --noinput
+      && python manage.py makemigrations
+      && python manage.py migrate
+      && python manage.py test
+      && gunicorn CORE.wsgi:application --bind 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=CORE.settings.dev
+      - DATABASE_NAME=postgres
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=db
+      - CAPTCHA_TEST_MODE=True
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+    restart: on-failure
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "64.0MB"
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: pg_isready -U postgres
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "64.0MB"

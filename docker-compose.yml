@@ -1,0 +1,33 @@
+services:
+  web:
+    build: .
+    command: >
+      bash -c "
+      python manage.py collectstatic --noinput
+      && python manage.py makemigrations
+      && python manage.py migrate
+      && gunicorn CORE.wsgi:application --bind 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    environment:
+      - DJANGO_SETTINGS_MODULE=CORE.settings.dev
+      - DATABASE_NAME=postgres
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=postgres
+      - DATABASE_HOST=db
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+    restart: on-failure
+
+  db:
+    image: postgres
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: pg_isready -U postgres
