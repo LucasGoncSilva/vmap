@@ -1,7 +1,7 @@
 {
   "builds": [
     {
-      "src": "PROJECT/wsgi.py",
+      "src": "VMAP/CORE/wsgi.py",
       "use": "@vercel/python",
       "config": {
         "maxLambdaSize": "300mb",
@@ -19,7 +19,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "PROJECT/wsgi.py"
+      "dest": "VMAP/CORE/wsgi.py"
     }
   ]
 }
