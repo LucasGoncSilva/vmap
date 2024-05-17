@@ -1,0 +1,54 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+// Site: https://www.dbdiagram.io/d/VMAP_schema-66426ba79e85a46d55bdbb51
+
+Table System { 
+  ID int [pk, unique, not null, increment]
+  name varchar(6) [unique, not null]
+ note:'oe,saec,ws oe, ws saec check'
+ 
+}
+
+Table Project {
+  ID tinyint [pk, unique, not null, increment]
+  name varchar(6) [unique, not null]
+   note:'financeiro, sipe terras etc check'
+}
+
+Table PBI {
+  ID int [pk, unique, not null, increment]
+  number int [unique, not null]
+  name varchar(128) [unique, not null]
+  project_id tinyint [ref: < Project.ID, not null]
+  feature bool [note:'0 = Deploy / 1 = Sustentação']
+  note:'check'
+}
+
+Table Deploy {
+  ID int [pk, unique, not null, increment]
+  deploy_date datetime [not null]
+  note: 'Check'
+}
+
+Table Deploy_PBI {
+  ID int [pk, unique, not null, increment]
+  deploy_id int [ref: < Deploy.ID, not null]
+  pbi_id int [ref: < PBI.ID, not null]
+  result_id tinyint [ref: < Status.ID, not null]
+  comment varchar(300)
+  note: 'Check'
+}
+
+Table Status {
+  ID tinyint [pk, unique, not null, increment]
+  Status varchar(8) [not null , note:'1 = Aprovada / 2 = Rollback / 3 = Ajuste']
+  note: 'Check'
+}
+
+Table PBI_System {
+  ID int [pk, unique, not null, increment]
+  pbi_id int [ref: <> PBI.ID, not null]
+  System_id int [ref:<> System.ID, not null]
+  note: 'Check'
+}
+
