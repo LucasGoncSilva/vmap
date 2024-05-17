@@ -2,6 +2,8 @@
 // Docs: https://dbml.dbdiagram.io/docs
 // Site: https://www.dbdiagram.io/d/VMAP_schema-66426ba79e85a46d55bdbb51
 
+Show é larapio 
+
 Table System { 
   ID int [pk, unique, not null, increment]
   name varchar(6) [unique, not null]
