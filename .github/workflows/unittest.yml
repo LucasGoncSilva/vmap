@@ -3,11 +3,7 @@ name: Django Unit Testing
 on: [push, fork, pull_request]
 
 env:
-  SECRET_KEY: ${{ secrets.SECRET_KEY }}
-  ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
-  DJANGO_SETTINGS_MODULE: ${{ secrets.DJANGO_SETTINGS_MODULE }}
-  EMAIL_HOST_USER: ${{ secrets.EMAIL_HOST_USER }}
-  EMAIL_HOST_PASSWORD: ${{ secrets.EMAIL_HOST_PASSWORD }}
+  DJANGO_SETTINGS_MODULE: CORE.settings.dev
 
 jobs:
   build:
