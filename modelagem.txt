@@ -2,55 +2,74 @@
 // Docs: https://dbml.dbdiagram.io/docs
 // Site: https://www.dbdiagram.io/d/VMAP_schema-66426ba79e85a46d55bdbb51
 
-Show é larapio 
 
 Table System { 
-  ID int [pk, unique, not null, increment]
-  name varchar(6) [unique, not null]
- note:'oe,saec,ws oe, ws saec check'
- 
+  ID int [pk, unique, not null, increment, note: 'ID da tabela']
+  name varchar(6) [unique, not null, note: 'Nome do sistema']
+  
+  Note: '''
+    OE
+    SAEC
+    PH
+    WSOE
+    WSSAEC
+    ...'''
 }
 
 Table Project {
-  ID tinyint [pk, unique, not null, increment]
-  name varchar(6) [unique, not null]
-   note:'financeiro, sipe terras etc check'
+  ID tinyint [pk, unique, not null, increment, note: 'ID da tabela']
+  name varchar(6) [unique, not null, note: 'Nome do projeto']
+
+  Note: '''
+    Financ
+    SIPE
+    Terras
+    ...'''
 }
 
 Table PBI {
-  ID int [pk, unique, not null, increment]
-  number int [unique, not null]
-  name varchar(128) [unique, not null]
-  project_id tinyint [ref: < Project.ID, not null]
-  feature bool [note:'0 = Deploy / 1 = Sustentação']
-  note:'check'
+  ID int [pk, unique, not null, increment, note: 'ID da tabela']
+  number int [unique, not null, note: 'Número da PBI no VSTS']
+  name varchar(128) [unique, not null, note: 'Nome da PBI no VSTS']
+  project_id tinyint [ref: < Project.ID, not null, note: 'ID do projeto na tabela "Project"']
+  feature bool [note: '''
+    0 - Deploy
+    1 - Sustentação  ''']
+
+  Note: 'Cada PBI de cada Deploy será cadastrada aqui'
 }
 
 Table Deploy {
-  ID int [pk, unique, not null, increment]
-  deploy_date datetime [not null]
-  note: 'Check'
-}
+  ID int [pk, unique, not null, increment, note: 'ID da tabela']
+  deploy_date datetime [not null, note: 'Data que ocorreu a deploy']
 
-Table Deploy_PBI {
-  ID int [pk, unique, not null, increment]
-  deploy_id int [ref: < Deploy.ID, not null]
-  pbi_id int [ref: < PBI.ID, not null]
-  result_id tinyint [ref: < Status.ID, not null]
-  comment varchar(300)
-  note: 'Check'
+  Note: 'Cada deploy será cadastrada aqui junto à sua data'
 }
 
 Table Status {
-  ID tinyint [pk, unique, not null, increment]
-  Status varchar(8) [not null , note:'1 = Aprovada / 2 = Rollback / 3 = Ajuste']
-  note: 'Check'
+  ID tinyint [pk, unique, not null, increment, note: 'ID da tabela']
+  Status varchar(8) [not null, note:'''
+    1 - Aprovada
+    2 - Rollback
+    3 - Ajuste''']
+
+  Note: 'Determina os status que uma PBI pode assumir em uma Deploy'
+}
+
+Table Deploy_PBI {
+  ID int [pk, unique, not null, increment, note: 'ID da tabela']
+  deploy_id int [ref: < Deploy.ID, not null, note: 'ID da deploy na tabela "Deploy"']
+  pbi_id int [ref: < PBI.ID, not null, note: 'ID da PBI na tabela "PBI"']
+  result_id tinyint [ref: < Status.ID, not null, note: 'ID do resultado na tabela "Status"']
+  comment varchar(300) [note: 'Comentário opcional sobre determinada PBI em determinada deploy']
+
+  Note: 'Associa cada Deploy às suas PBIs'
 }
 
 Table PBI_System {
-  ID int [pk, unique, not null, increment]
-  pbi_id int [ref: <> PBI.ID, not null]
-  System_id int [ref:<> System.ID, not null]
-  note: 'Check'
-}
+  ID int [pk, unique, not null, increment, note: 'ID da tabela']
+  pbi_id int [ref: <> PBI.ID, not null, note: 'ID da PBI na tabela "PBI"']
+  system_id int [ref:<> System.ID, not null, note: 'ID do sistema na tabela "System"']
 
+  Note: 'Associa PBIs e sistemas'
+}
