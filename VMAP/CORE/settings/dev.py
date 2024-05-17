@@ -7,8 +7,7 @@ from CORE.settings.base import *
 
 load_dotenv()
 
-
-# docker run --name psql_swarden -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -d postgres
+# docker run --name psql_vmap -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -d postgres
 DATABASES: dict[str, dict[str, str | Path | None]] = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
