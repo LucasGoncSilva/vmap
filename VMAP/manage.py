@@ -15,6 +15,12 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+    if 'test' in sys.argv:
+        execute_from_command_line(['manage.py', 'makemigrations'])
+        execute_from_command_line(['manage.py', 'migrate'])
+        execute_from_command_line(['manage.py', 'collectstatic', '--noinput'])
+
     execute_from_command_line(sys.argv)
 
 
