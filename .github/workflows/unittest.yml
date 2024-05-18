@@ -32,7 +32,7 @@ jobs:
 
       - name: Set and Migrate DB
         run: |
-          docker run --name psql_VMAP -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -d postgres
+          docker run --name psql_vmap -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -d postgres
           python -c "import time; time.sleep(10)"
           python VMAP/manage.py makemigrations
           python VMAP/manage.py migrate

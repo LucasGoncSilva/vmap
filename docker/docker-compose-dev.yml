@@ -1,0 +1,93 @@
+# # docker stop $(docker ps -a -q); docker rm $(docker ps -a -q); docker rmi $(docker images -a -q)
+# # docker compose -f docker-compose-dev.yml up
+
+# services:
+#   web:
+#     build: .
+#     command: >
+#       bash -c "
+#       python manage.py collectstatic --noinput
+#       && python manage.py makemigrations
+#       && python manage.py migrate
+#       && gunicorn CORE.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"
+#     ports:
+#       - "8000:8000"
+#     environment:
+#       - DJANGO_SETTINGS_MODULE=CORE.settings.dev
+#       - DATABASE_NAME=postgres
+#       - DATABASE_USER=postgres
+#       - DATABASE_PASSWORD=postgres
+#       - DATABASE_HOST=db
+#     depends_on:
+#       db:
+#         condition: service_healthy
+#         restart: true
+#     restart: on-failure
+#     deploy:
+#       resources:
+#         limits:
+#           cpus: "0.5"
+#           memory: "64.0MB"
+
+#   db:
+#     image: postgres
+#     environment:
+#       - POSTGRES_DB=postgres
+#       - POSTGRES_USER=postgres
+#       - POSTGRES_PASSWORD=postgres
+#     ports:
+#       - "5432:5432"
+#     healthcheck:
+#       test: pg_isready -U postgres
+#     deploy:
+#       resources:
+#         limits:
+#           cpus: "0.5"
+#           memory: "64.0MB"
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../VMAP:/app
+    command: >
+      bash -c "
+      pip install tblib
+      && python manage.py makemigrations
+      && python manage.py migrate
+      && gunicorn CORE.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_SETTINGS_MODULE: CORE.settings.dev
+      DATABASE_NAME: postgres
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_HOST: db
+    depends_on:
+      db:
+        condition: service_healthy
+        restart: true
+    restart: on-failure
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "64.0MB"
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: pg_isready -U postgres
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: "64.0MB"

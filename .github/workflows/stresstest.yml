@@ -30,7 +30,7 @@ jobs:
 
       - name: Build and Run Docker Compose
         run: |
-          docker compose -f docker-compose-load.yml up -d
+          docker compose -f docker/docker-compose-dev.yml up -d
 
       - name: Run Locust
         continue-on-error: true
