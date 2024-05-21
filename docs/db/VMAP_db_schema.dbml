@@ -3,6 +3,13 @@
 // Site: https://www.dbdiagram.io/d/VMAP_schema-66426ba79e85a46d55bdbb51
 
 
+Project VMAP {
+  database_type: 'PostgreSQL'
+  Note: 'Com o intuito de registrar e documentar as tarefas \
+  e situações gerais das deploys, o VMAP surge como solução \
+  autodesenvolvida internamente.'
+}
+
 Table System { 
   ID int [pk, unique, not null, increment, note: 'ID da tabela']
   name varchar(6) [unique, not null, note: 'Nome do sistema']
