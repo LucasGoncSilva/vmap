@@ -6,8 +6,10 @@
 ![GitHub License](https://img.shields.io/github/license/LucasGoncSilva/vmap?labelColor=101010)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/LucasGoncSilva/vmap/unittest.yml?style=flat&labelColor=%23101010)
 
-Trabalhando nas atualizações semanais dos sistemas, quatro indivíduos perceberam a necessidade de possuir um registro eficiente para documentar as deploys e as tarefas de cada deploy, tanto o que é aprovado quanto o que, por algum problema, volta para desenvolvimento. Após a ideia do internamente eleito PO do projeto Daniel, nasceu o Visualization and Management Platform.<br>
-Criado em Django como Framework MVC, o VMAP tem como principal objetivo armazenar de forma organizada e estruturada as tarefas deploy por deploy, registrando os sistemas e projetos de impactos de cada tarefa, juntamente com o resultado: Ok ou Rollback.<br>
+Trabalhando nas atualizações semanais dos sistemas, quatro indivíduos perceberam a necessidade de possuir um registro eficiente para documentar as deploys e as tarefas de cada deploy, tanto o que é aprovado quanto o que, por algum problema, volta para desenvolvimento. Após a ideia do internamente eleito PO do projeto Daniel, nasceu o **Visualization and Management Platform**.
+<br><br>
+Criado em Django como Framework MVC, o VMAP tem como principal objetivo armazenar de forma organizada e estruturada as tarefas deploy por deploy, registrando os sistemas e projetos de impactos de cada tarefa, juntamente com o resultado: `Ok` ou `Rollback`.
+<br><br>
 Cada diferente seção do projeto está organizada de forma bem específica em seu diretório, utilizando do conceito de modularidade. Esta estrutura facilita a localização dos elementos com base eu sua funcionalidade, objetivo ou finalidade. Detalhes sobre a estrutura de diretórios a seguir:
 
 ```bash
@@ -99,49 +101,75 @@ Para cada seção do projeto, definidas por diretórios, há uma atribuição ú
 
 #### Realizar Migrações (Atualizações) de Banco de Dados
 
-`python manager.py makemigrations`
+```
+python manager.py makemigrations
+```
 
 #### Atualizar Estrutura do Banco de Dados com Novas Migrações
 
-`python manager.py migrate`
+```
+python manager.py migrate
+```
 
 #### Iniciar Testes Automatizados
 
-`python manager.py test`
+```
+python manager.py test
+```
 
 #### Iniciar o Servidor de Desenvolvimento
 
-`python manager.py runserver`
+```
+python manager.py runserver
+```
 
 #### Criar Superusuário
 
-`python manage.py createsuperuser`
+```
+python manage.py createsuperuser
+```
 
 ### Docker - `vmap/`
 
 #### Criar Container Orquestrado
 
-`docker compose up --build` para `docker-compose.yml`
-ou
-`docker compose -f docker-compose-[dev/unittest] up --build` para `docker-compose-dev.yml` ou `docker-compose-unittest.yml`
+```
+docker compose up --build  # Para `docker-compose.yml
+```
+
+```
+docker compose -f docker/docker-compose-dev.yml up --build  # Para `docker-compose-dev.yml
+```
+
+```
+docker compose -f docker/docker-compose-unittest.yml up --build  # Para `docker-compose-dev.yml
+```
 
 ### Loadtests - `vmap` - Aplicação Rodando (local ou via docker)
 
 #### Rodar Teste "Stress"
 
-`locust --headless -f loadtests/stress_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/stress --html report/html/stress.html`
+```
+locust --headless -f loadtests/stress_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/stress --html report/html/stress.html
+```
 
 #### Rodar Teste "Load"
 
-`locust --headless -f loadtests/load_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/load --html report/html/load.html`
+```
+locust --headless -f loadtests/load_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/load --html report/html/load.html
+```
 
 #### Rodar Teste "Soak"
 
-`locust --headless -f loadtests/soak_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/soak --html report/html/soak.html`
+```
+locust --headless -f loadtests/soak_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/soak --html report/html/soak.html
+```
 
 #### Rodar Teste "Spike"
 
-`locust --headless -f loadtests/spike_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/spike --html report/html/spike.html`
+```
+locust --headless -f loadtests/spike_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/spike --html report/html/spike.html
+```
 
 ### Docs - `vmap/`
 
