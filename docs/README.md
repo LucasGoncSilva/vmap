@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="../docs/logo.svg" height="300" width="300" alt="Logo VMAP" /><br>
+  <img src="./logo.svg" height="300" width="300" alt="Logo VMAP" /><br>
   VMAP
 </h1>
 
@@ -74,13 +74,15 @@ Cada diferente seção do projeto está organizada de forma bem específica em s
 
 ## Arquitetura
 
+A arquitetura pode ser detalhada de forma geral em dois níveis: web e database. As mecânicas são abstraídas a um nível geral, evitando detalhes profundos que confundam à agregar, apresentando uma visão comportamental em escala "macro" seguindo o fluxo de dados sem focar no "micro", como cada ação de cada função. Acompanhe abaixo o fluxo de informações na Web, seguido da estruturação e arquitetura o Banco de Dados:
+
 ### VMAP
 
-![Arquitetura do Projeto em caráter global](../docs/web/VMAP_architecture.svg)
+![Arquitetura do Projeto em caráter global](./web/web_architecture.svg)
 
 ### DB
 
-![Arquitetura do Banco de Dados](../docs/db/VMAP_db_schema.svg)
+![Arquitetura do Banco de Dados](./db/db_schema.svg)
 
 <br>
 
@@ -94,6 +96,19 @@ Para cada seção do projeto, definidas por diretórios, há uma atribuição ú
 * `loadtests/` - possuir [Python](https://www.python.org/) e rodar `pip install -r requirements.dev.txt` para instalar [Locust](https://locust.io/)
 
 ## Desenvolvendo
+
+Antes de iniciar com o desenvolvimento e os comandos, é importante definir as variáveis de ambiente no seu ambiente de desenvolvimento. Abaixo a listagem de quais definir:
+
+| Variável                      | Caráter    | Responsabilidade
+| :---                          | :---       | :---
+| `DJANGO_SETTINGS_MODULE`      | `str - required` | Definir o módulo de configurações a ser utilizado.<br>Valor recomendado `CORE.settings.dev`
+| `DATABASE_NAME`               | `str - optional` | Definir o nome de acesso do Banco de Dados.<br>Default `postgres`
+| `DATABASE_USER`               | `str - optional` | Definir o usuário de acesso do Banco de Dados.<br>Default `postgres`
+| `DATABASE_PASSWORD`           | `str - optional` | Definir a senha de acesso do Banco de Dados.<br>Default `postgres`
+| `DATABASE_HOST`               | `str - optional` | Definir o host de acesso do Banco de Dados.<br>Default `localhost`
+| `DEBUG`                       | `bool - optional` | Definir traceback e informações de debug em páginas browser.<br>Default `True`
+| `SECRET_KEY`                  | `str - optional` | Definir chave de criptografia e segurança do projeto.<br>Default `cw%t5...ba^m3)`
+| `ALLOWED_HOSTS`               | `list[str] - optional` | Definir lista de endereços URL válidos para execução do projeto.<br>Default `['*']`
 
 ### VMAP - `vmap/VMAP/`
 
