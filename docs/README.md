@@ -88,6 +88,8 @@ A arquitetura pode ser detalhada de forma geral em dois níveis: web e database.
 
 ![Arquitetura do Banco de Dados](./arch/db.svg)
 
+**OBS: para mais detalhes sobre o Banco de Dados acesse [Detalhes do Banco de Dados](https://dbdocs.io/lucasgoncsilva04/VMAP)
+
 <br>
 
 ## Requisitos
