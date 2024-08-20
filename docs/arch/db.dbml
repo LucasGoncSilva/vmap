@@ -1,0 +1,166 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+
+Project VMAP {
+  database_type: 'PostgreSQL'
+  Note: '''# VMAP: Arquitetura do Banco de Dados
+
+Trabalhando nas atualizações semanais dos sistemas, quatro indivíduos perceberam a necessidade de possuir um registro eficiente para documentar as deploys e as tarefas de cada deploy, tanto o que é aprovado quanto o que, por algum problema, volta para desenvolvimento. Após a ideia do internamente eleito PO do projeto Daniel, nasceu o VMAP.
+
+Criado em Django como Framework MVC, o VMAP (Visualization and Mapping Platform) é uma plataforma de visualização e mapeamento de tarefas que seguem a esteira de implantação até o ambiente de Produção e tem como principal objetivo armazenar de forma organizada e estruturada as tarefas deploy por deploy, registrando os sistemas e projetos de impactos de cada tarefa, juntamente com o resultado de cada tarefa.
+
+Ainda que um projeto experimental no momento, possui boas perspectivas acadêmico-profissionais, porquanto é perfeitamente capaz de servir como material prático de estudo e solução para um problema: o histórico preciso de tarefas atualizadas.
+
+Tratando agora do Banco de Dados, este possui uma importância monumental, pois é nele onde se concentram as informações mais sensíveis de TODO o projeto. Sua arquitetura impacta diretamente todos os pontos onda há contato com ele, por menor que seja.
+
+O desenho de cada tabela, as relações de chaves estrangeiras e até os tipos de dados escolhidos para cada coluna influenciam a performance de tudo, partindo do próprio Banco e indo ao Front-end passando pelo Back-end.
+
+Nesta documentação serão apresentados a engine escolhida, a arquitetura e estrutura do Banco de Dados, cada uma de suas tabelas aqui existentes, os tipos de dados das colunas, as referências de chaves estrangeias e quaisquer outras mecânicas que possuam a devida importância para estarem documentadas.
+
+---
+
+## PostgreSQL
+
+"O Mais Avançado Banco de Dados do Mundo", como ele mesmo define, é um sistema de gerenciamento de banco de dados relacional e objeto-relacional de código aberto. Ele é amplamente utilizado por sua robustez, extensibilidade e conformidade com os padrões SQL.
+
+Definitivamente não é o mais veloz, bancos de dados não-relacionais como Redis ocupam esse lugar, também não é o mais compacto, SQLite é comercialmente o mais compacto, mas ele é o mais eficiente em equilibrar todos os elementos. Ser muito rápido, extremamente confiável, facilmente trabalhado, globalmente disponibilizado, avançado quanto às transações ACID, personalizável e ainda possuir uma comunidade extremamente ativa - também por ser de código aberto - o torna líder de mercado, escolha quase que padrão para a maioria dos projetos.
+
+Os elementos descritos acima contribuem diretamente para a escolha da engine e do Banco de Dados Postgres, atentendo às demandas deste projeto de maneira consistente ~~e gratuita~~.
+
+## Tabelas
+
+O Banco de Dados do VMAP é arquitetado com dois "grupos" conectados, por assim dizer: Sistema e Tarefa. O primeiro grupo é responsável por identificar os módulos e sistemas passíveis de impacto; o segundo grupo se responsabiliza das alterações que impactam os sistemas; há ainda uma última tabela que faz a união entre esses dois grupos. Todos descritos abaixo:
+
+### Sistema
+
+* `System`: sistemas, sites (SAEC, OE)
+* `Project`: módulos, projetos (Terras Brasil, SIPE)
+
+### Tarefa
+
+* `PBI`: tarefa individual, seja amarrada em outras ou não
+* `Status`: resultado de cada tarefa
+* `Deploy`: atualização dos sistemas propriamente dita
+* `Deploy_PBI`: agrupamento de cada deploy com suas respectivas tarefas
+
+### União
+
+* `PBI_System`: vínculo de uma tarefa com diversos sistemas, bem como um sistema e diversas tarefas
+
+## Tipos de Dados
+
+Apesar da arquitetura possuir 5 tabelas principais (demais tabelas com responsabilidades administrativas do próprio Framework Django) com mais de 43 colunas somadas, os tipos de dados utilizados nas tabelas se resumem à apenas 5 tipos: `bool`, `date`, `uuid`, `integer`, `smallint`, `timestamp` e `varchar`.
+
+`bool`: 1 byte de tamanho, determina um valor binário como positivo/negativo, on/off, 0/1
+`date`: 4 bytes de tamanho, determina uma data entre 4713 AC e 5874897 DC com precisão de 1 dia
+`integer`: 8 bytes de tamanho, determina um inteiro entre -2.147.483.648 e +2.147.483.647 (2bi)
+`smallint`: 2 bytes de tamanho, determina um inteiro entre -32768 e +32767
+`timestamp`: 8 bytes de tamanho, determina data e hora entre 4713 AC e 5874897 DC com precisão de 1 microsegundo
+`uuid`: 16 bytes de tamanho, utilizado para determinar IDs não-incrementais inteiros, gerados por um algoritmo, neste caso o v4
+`varchar`: tamanho em bytes variado, define sequências de caracteres, strings, variando o tamanho em bytes com especificação + 1 (e.g. varchar(10) -> 11 bytes)
+
+A escolha de tipos de dados é estratégica para o balanceamento entre espaço de armazenamento e velocidade de acesso, onde inteiros e UUIDs são utilizados para identificar registros de forma eficiente e segura, varchar com limitação de tamanho em campos de texto (first_name, last_name, email, etc.) para economizar espaço (delimitando-o) e melhorar a performance e, por fim, timestamps se encarregando da facilitação de operações temporais, como ordenação e filtro por data de criação ou atualização.
+
+## Referências - Chaves Estrangeiras
+
+Chaves estrangeiras são referências de uma tabela a outra, garantindo a integridade referencial entre elas. Elas estabelecem um vínculo entre a coluna de uma tabela, chamada de chave estrangeira, e a coluna primária da tabela referenciada.
+
+No PostgreSQL, ao definir uma chave estrangeira, asseguramos que os valores dessa coluna correspondam a valores existentes na coluna primária referenciada, impedindo dados órfãos e mantendo a consistência dos relacionamentos no Banco de Dados. Os relacionamentos entre as tabelas do Banco de Dados se faz como determinado a seguir, onde `a *..1 b` corresponde à `a many-to-one b` e `a *..* b` corresponde à `a many-to-many b`:
+
+| Tabela A     | Relação | Tabela B
+| ---:         | :---:   | :---
+| `Deploy.ID`  | `*..1`  | `Deploy_PBI.deploy_id`
+| `Status.ID`  | `*..1`  | `Deploy_PBI.status_id`
+| `PBI.ID`     | `*..1`  | `Deploy_PBI.pbi_id`
+| `PBI.ID`     | `*..*`  | `PBI_System.pbi_id`
+| `System.ID`  | `*..*`  | `PBI_System.system_id`
+| `Project.ID` | `*..1`  | `PBI.project_id`
+
+## Normalização e Desnormalização
+
+Normalização é o processo de organização de dados em um banco de dados. Isso inclui a criação de tabelas e o estabelecimento de relações entre essas tabelas de acordo com as regras projetadas para proteger os dados e tornar o Banco de Dados mais flexível, eliminando a redundância e a dependência inconsistente.
+
+Desnormalização, por sua vez, é uma técnica aplicada a bancos de dados relacionais com o objetivo de otimizar a performance de consultas que envolvem muitas tabelas. Esse tipo de consulta normalmente requer a utilização de junções (JOINS) entre tabelas para obter todos os dados necessários, o que acaba comprometendo o desempenho do banco de dados.
+
+Para contornar esse problema em casos específicos pode ser viável desnormalizar o banco, juntando os dados em uma única tabela (ou menos tabelas do que as que eram usadas originalmente). Apesar de isso acabar gerando redundância de informações, as aplicações serão beneficiadas com o ganho de desempenho devido a não ser mais necessário unir várias tabelas.
+
+O VMAP não faz uso da desnormalização, porquanto a performance do Postgres enquanto estruturado já entrega os resultados desejados e esperados, portanto, não há redundância de dados.
+
+## Consultas e Transações
+
+O uso de índices em chaves primárias e estrangeiras acelera as operações de leitura. As consultas são projetadas para aproveitar esses índices, evitando full table scans sempre que possível.
+
+Quanto às transações, o PostgreSQL é perfeitamente capaz de garantir com excelência os quatro atributos ACID: atomicidade, consistência, isolamento e durabilidade. Isso é crítico para operações que envolvem múltiplas tabelas e para a manutenção da integridade dos dados em cenários de concorrência'''
+}
+
+Table System { 
+  ID smallint [pk, unique, not null, increment, note: 'ID da tabela']
+  name varchar(6) [unique, not null, note: 'Nome do sistema']
+  
+  Note: '''
+    OE
+    SAEC
+    PH
+    WSOE
+    WSSAEC
+    ...'''
+}
+
+Table Project {
+  ID smallint [pk, unique, not null, increment, note: 'ID da tabela']
+  name varchar(6) [unique, not null, note: 'Nome do projeto']
+
+  Note: '''
+    Financ
+    SIPE
+    Terras
+    ...'''
+}
+
+Table PBI {
+  ID integer [pk, unique, not null, increment, note: 'ID da tabela']
+  number integer [unique, not null, note: 'Número da PBI no VSTS']
+  name varchar(128) [unique, not null, note: 'Nome da PBI no VSTS']
+  project_id smallint [ref: < Project.ID, not null, note: 'ID do projeto na tabela "Project"']
+  feature bool [note: '''
+    0 - Deploy
+    1 - Sustentação  ''']
+
+  Note: 'Cada PBI de cada Deploy será cadastrada aqui'
+}
+
+Table Deploy {
+  ID integer [pk, unique, not null, increment, note: 'ID da tabela']
+  deploy_date datetime [not null, note: 'Data que ocorreu a deploy']
+
+  Note: 'Cada deploy será cadastrada aqui junto à sua data'
+}
+
+Table Status {
+  ID smallint [pk, unique, not null, increment, note: 'ID da tabela']
+  Status varchar(8) [not null, note:'''
+    1 - Aprovada
+    2 - Rollback
+    3 - Ajuste''']
+
+  Note: 'Determina os status que uma PBI pode assumir em uma Deploy'
+}
+
+Table Deploy_PBI {
+  ID integer [pk, unique, not null, increment, note: 'ID da tabela']
+  deploy_id integer [ref: < Deploy.ID, not null, note: 'ID da deploy na tabela "Deploy"']
+  pbi_id integer [ref: < PBI.ID, not null, note: 'ID da PBI na tabela "PBI"']
+  status_id smallint [ref: < Status.ID, not null, note: 'ID do resultado na tabela "Status"']
+  comment varchar(300) [note: 'Comentário opcional sobre determinada PBI em determinada deploy']
+
+  Note: 'Associa cada Deploy às suas PBIs'
+}
+
+Table PBI_System {
+  ID integer [pk, unique, not null, increment, note: 'ID da tabela']
+  pbi_id integer [ref: <> PBI.ID, not null, note: 'ID da PBI na tabela "PBI"']
+  system_id integer [ref:<> System.ID, not null, note: 'ID do sistema na tabela "System"']
+
+  Note: 'Associa PBIs e sistemas'
+}

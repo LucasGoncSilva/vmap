@@ -6,8 +6,12 @@
 ![GitHub License](https://img.shields.io/github/license/LucasGoncSilva/vmap?labelColor=101010)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/LucasGoncSilva/vmap/unittest.yml?style=flat&labelColor=%23101010)
 
-Trabalhando nas atualizações semanais dos sistemas, quatro indivíduos perceberam a necessidade de possuir um registro eficiente para documentar as deploys e as tarefas de cada deploy, tanto o que é aprovado quanto o que, por algum problema, volta para desenvolvimento. Após a ideia do internamente eleito PO do projeto Daniel, nasceu o Visualization and Management Platform.<br>
-Criado em Django como Framework MVC, o VMAP tem como principal objetivo armazenar de forma organizada e estruturada as tarefas deploy por deploy, registrando os sistemas e projetos de impactos de cada tarefa, juntamente com o resultado: Ok ou Rollback.<br>
+Trabalhando nas atualizações semanais dos sistemas, quatro indivíduos perceberam a necessidade de possuir um registro eficiente para documentar as deploys e as tarefas de cada deploy, tanto o que é aprovado quanto o que, por algum problema, volta para desenvolvimento. Após a ideia do internamente eleito PO do projeto Daniel, nasceu o VMAP.
+<br><br>
+Criado em Django como Framework MVC, o VMAP (Visualization and Mapping Platform) é uma plataforma de visualização e mapeamento de tarefas que seguem a esteira de implantação até o ambiente de Produção e tem como principal objetivo armazenar de forma organizada e estruturada as tarefas deploy por deploy, registrando os sistemas e projetos de impactos de cada tarefa, juntamente com o resultado de cada tarefa.
+<br><br>
+Ainda que um projeto experimental no momento, possui boas perspectivas acadêmico-profissionais, porquanto é perfeitamente capaz de servir como material prático de estudo e solução para um problema: o histórico preciso de tarefas atualizadas.
+<br><br>
 Cada diferente seção do projeto está organizada de forma bem específica em seu diretório, utilizando do conceito de modularidade. Esta estrutura facilita a localização dos elementos com base eu sua funcionalidade, objetivo ou finalidade. Detalhes sobre a estrutura de diretórios a seguir:
 
 ```bash
@@ -78,11 +82,11 @@ A arquitetura pode ser detalhada de forma geral em dois níveis: web e database.
 
 ### VMAP
 
-![Arquitetura do Projeto em caráter global](./web/web_architecture.svg)
+![Arquitetura do Projeto em caráter global](./arch/web.svg)
 
 ### DB
 
-![Arquitetura do Banco de Dados](./db/db_schema.svg)
+![Arquitetura do Banco de Dados](./arch/db.svg)
 
 <br>
 
@@ -90,25 +94,25 @@ A arquitetura pode ser detalhada de forma geral em dois níveis: web e database.
 
 Para cada seção do projeto, definidas por diretórios, há uma atribuição única onde para cada atribuição, requisitos próprios são necessários para a utilização. Acompanhe abaixo os requisitos para utilização de cada módulo do VMAP - valendo lembrar que é recomendado instalar as dependências diretas do projeto dentro de um ambiente virtual:
 
-* `VMAP/` - por razões óbvias, possuir [Python](https://www.python.org/) e rodar `pip install -r requirements.txt`
-* `docker/` - possuir as engines do [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/) para criação e inicialização dos containers contendo as imagens do projeto
-* `docs/` - possuir [NodeJS](https://nodejs.org/en/), [NPM](https://www.npmjs.com/) ou equivalente e instalar [DBDocs](https://dbdocs.io/docs)
-* `loadtests/` - possuir [Python](https://www.python.org/) e rodar `pip install -r requirements.dev.txt` para instalar [Locust](https://locust.io/)
+- `VMAP/` - por razões óbvias, possuir [Python](https://www.python.org/) e rodar `pip install -r requirements.txt`
+- `docker/` - possuir as engines do [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/) para criação e inicialização dos containers contendo as imagens do projeto
+- `docs/` - possuir [NodeJS](https://nodejs.org/en/), [NPM](https://www.npmjs.com/) ou equivalente e instalar [DBDocs](https://dbdocs.io/docs)
+- `loadtests/` - possuir [Python](https://www.python.org/) e rodar `pip install -r requirements.dev.txt` para instalar [Locust](https://locust.io/)
 
 ## Desenvolvendo
 
 Antes de iniciar com o desenvolvimento e os comandos, é importante definir as variáveis de ambiente no seu ambiente de desenvolvimento. Abaixo a listagem de quais definir:
 
-| Variável                      | Caráter    | Responsabilidade
-| :---                          | :---       | :---
-| `DJANGO_SETTINGS_MODULE`      | `str - required` | Definir o módulo de configurações a ser utilizado.<br>Valor recomendado `CORE.settings.dev`
-| `DATABASE_NAME`               | `str - optional` | Definir o nome de acesso do Banco de Dados.<br>Default `postgres`
-| `DATABASE_USER`               | `str - optional` | Definir o usuário de acesso do Banco de Dados.<br>Default `postgres`
-| `DATABASE_PASSWORD`           | `str - optional` | Definir a senha de acesso do Banco de Dados.<br>Default `postgres`
-| `DATABASE_HOST`               | `str - optional` | Definir o host de acesso do Banco de Dados.<br>Default `localhost`
-| `DEBUG`                       | `bool - optional` | Definir traceback e informações de debug em páginas browser.<br>Default `True`
-| `SECRET_KEY`                  | `str - optional` | Definir chave de criptografia e segurança do projeto.<br>Default `cw%t5...ba^m3)`
-| `ALLOWED_HOSTS`               | `list[str] - optional` | Definir lista de endereços URL válidos para execução do projeto.<br>Default `['*']`
+| Variável                 | Caráter                | Responsabilidade                                                                            |
+| :----------------------- | :--------------------- | :------------------------------------------------------------------------------------------ |
+| `DJANGO_SETTINGS_MODULE` | `str - required`       | Definir o módulo de configurações a ser utilizado.<br>Valor recomendado `CORE.settings.dev` |
+| `DATABASE_NAME`          | `str - optional`       | Definir o nome de acesso do Banco de Dados.<br>Default `postgres`                           |
+| `DATABASE_USER`          | `str - optional`       | Definir o usuário de acesso do Banco de Dados.<br>Default `postgres`                        |
+| `DATABASE_PASSWORD`      | `str - optional`       | Definir a senha de acesso do Banco de Dados.<br>Default `postgres`                          |
+| `DATABASE_HOST`          | `str - optional`       | Definir o host de acesso do Banco de Dados.<br>Default `localhost`                          |
+| `DEBUG`                  | `bool - optional`      | Definir traceback e informações de debug em páginas browser.<br>Default `True`              |
+| `SECRET_KEY`             | `str - optional`       | Definir chave de criptografia e segurança do projeto.<br>Default `cw%t5...ba^m3)`           |
+| `ALLOWED_HOSTS`          | `list[str] - optional` | Definir lista de endereços URL válidos para execução do projeto.<br>Default `['*']`         |
 
 ### VMAP - `vmap/VMAP/`
 
@@ -162,7 +166,7 @@ ou
 
 #### Gerar Documentação do DB
 
-`dbdocs login` seguido de `dbdocs build docs/db/VMAP_db_schema.dbml`
+`dbdocs login` seguido de `dbdocs build docs/arch/db.dbml`
 
 <br>
 
@@ -180,7 +184,7 @@ This project is under [MPLv2 - Mozilla Public License Version 2.0](https://choos
       <a href="https://github.com/LucasGoncSilva" title="GitHub">
         <img style="border-radius: 50%;" src="https://picsum.photos/200" width="100px;" alt=""/>
         <br>
-        <b>Andrade, Daniel</b>
+        <b>Daniboy</b>
       </a>
       <br>
       <sub><a href="https://www.linkedin.com/in/luksgonc/" title="LinkedIn">LinkedIn</a></sub>
@@ -190,29 +194,29 @@ This project is under [MPLv2 - Mozilla Public License Version 2.0](https://choos
       <a href="https://github.com/andersonjader0" title="GitHub">
         <img style="border-radius: 50%;" src="https://github.com/andersonjader0.png?size=100" width="100px;" alt=""/>
         <br>
-        <b>Jader, Anderson</b>
+        <b>Show</b>
       </a>
       <br>
       <sub><a href="https://www.linkedin.com/in/anderson-j-710685235/" title="LinkedIn">LinkedIn</a></sub>
     </td>
-    <td style="width: 70ch;">O mano do Front-End, apesar de estar se aventurando no outro lado da fora. O mais experiente em desenvolvimento de interfaces responsivas e piadas ruins.</td>
+    <td style="width: 70ch;">O mano do Front-End, apesar de estar se aventurando no outro lado da força. O mais experiente em desenvolvimento de interfaces responsivas e piadas ruins.</td>
   </tr>
   <tr>
     <td align="center">
       <a href="https://github.com/LucasGoncSilva" title="GitHub">
         <img style="border-radius: 50%;" src="https://github.com/LucasGoncSilva.png?size=100" width="100px;" alt=""/>
         <br>
-        <b>Gonçalves, Lucas</b>
+        <b>Goncas</b>
       </a>
       <br>
       <sub><a href="https://www.linkedin.com/in/luksgonc/" title="LinkedIn">LinkedIn</a></sub>
     </td>
-    <td style="width: 70ch;">Responsável pela maior parte das tarefas administrativas, é como o faxineiro-secretário, contribuiu com estrutura do projeto e o Back-end da plataforma.</td>
+    <td style="width: 70ch;">Responsável pela maior parte das tarefas administrativas, é como o faxineiro-secretário, contribuiu com a estrutura do projeto e o Back-end da plataforma.</td>
     <td align="center">
       <a href="https://github.com/Vinefonseca" title="GitHub">
         <img style="border-radius: 50%;" src="https://github.com/Vinefonseca.png?size=100" width="100px;" alt=""/>
         <br>
-        <b>Fonseca, Vinicius</b>
+        <b>Vine</b>
       </a>
       <br>
       <sub><a href="https://www.linkedin.com/in/vin%C3%ADcius-fonseca-barbosa-230147245/" title="LinkedIn">LinkedIn</a></sub>
