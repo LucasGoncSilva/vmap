@@ -2,7 +2,7 @@
 
 locust
 tqdm
-pyflakes
-black
+ruff
 tblib
 coverage
+django-extensions

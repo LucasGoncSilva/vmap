@@ -7,11 +7,11 @@
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/LucasGoncSilva/vmap/unittest.yml?style=flat&labelColor=%23101010)
 
 Trabalhando nas atualizações semanais dos sistemas, quatro indivíduos perceberam a necessidade de possuir um registro eficiente para documentar as deploys e as tarefas de cada deploy, tanto o que é aprovado quanto o que, por algum problema, volta para desenvolvimento. Após a ideia do internamente eleito PO do projeto Daniel, nasceu o VMAP.
-<br><br>
+
 Criado em Django como Framework MVC, o VMAP (Visualization and Mapping Platform) é uma plataforma de visualização e mapeamento de tarefas que seguem a esteira de implantação até o ambiente de Produção e tem como principal objetivo armazenar de forma organizada e estruturada as tarefas deploy por deploy, registrando os sistemas e projetos de impactos de cada tarefa, juntamente com o resultado de cada tarefa.
-<br><br>
+
 Ainda que um projeto experimental no momento, possui boas perspectivas acadêmico-profissionais, porquanto é perfeitamente capaz de servir como material prático de estudo e solução para um problema: o histórico preciso de tarefas atualizadas.
-<br><br>
+
 Cada diferente seção do projeto está organizada de forma bem específica em seu diretório, utilizando do conceito de modularidade. Esta estrutura facilita a localização dos elementos com base eu sua funcionalidade, objetivo ou finalidade. Detalhes sobre a estrutura de diretórios a seguir:
 
 ```bash
@@ -56,8 +56,6 @@ Cada diferente seção do projeto está organizada de forma bem específica em s
 
 ```
 
-<br>
-
 ## Stack
 
 ![HTML logo](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
@@ -74,8 +72,6 @@ Cada diferente seção do projeto está organizada de forma bem específica em s
 ![Render logo](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=000&color=fff)
 ![Supabase Logo](https://img.shields.io/badge/Supabase-181818?style=for-the-badge&logo=supabase&logoColor=3ecf8e)
 
-<br>
-
 ## Arquitetura
 
 A arquitetura pode ser detalhada de forma geral em dois níveis: web e database. As mecânicas são abstraídas a um nível geral, evitando detalhes profundos que confundam à agregar, apresentando uma visão comportamental em escala "macro" seguindo o fluxo de dados sem focar no "micro", como cada ação de cada função. Acompanhe abaixo o fluxo de informações na Web, seguido da estruturação e arquitetura o Banco de Dados:
@@ -88,16 +84,14 @@ A arquitetura pode ser detalhada de forma geral em dois níveis: web e database.
 
 ![Arquitetura do Banco de Dados](./arch/db.svg)
 
-**OBS: para mais detalhes sobre o Banco de Dados acesse [Detalhes do Banco de Dados](https://dbdocs.io/lucasgoncsilva04/VMAP)
-
-<br>
+**OBS: para mais detalhes sobre o Banco de Dados acesse [Detalhes do Banco de Dados](https://dbdocs.io/lucasgoncsilva04/VMAP)**
 
 ## Requisitos
 
 Para cada seção do projeto, definidas por diretórios, há uma atribuição única onde para cada atribuição, requisitos próprios são necessários para a utilização. Acompanhe abaixo os requisitos para utilização de cada módulo do VMAP - valendo lembrar que é recomendado instalar as dependências diretas do projeto dentro de um ambiente virtual:
 
-- `VMAP/` - por razões óbvias, possuir [Python](https://www.python.org/) e rodar `pip install -r requirements.txt`
-- `docker/` - possuir as engines do [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/) para criação e inicialização dos containers contendo as imagens do projeto
+- `VMAP/` - por razões óbvias, possuir [Python](https://www.python.org/) com Pip e rodar `pip install -r requirements.txt`
+- `docker/` - possuir as engines do [Docker](https://www.docker.com/) e [Docker Compose](https://docs.docker.com/compose/) para criação e inicialização dos containers com as imagens do projeto
 - `docs/` - possuir [NodeJS](https://nodejs.org/en/), [NPM](https://www.npmjs.com/) ou equivalente e instalar [DBDocs](https://dbdocs.io/docs)
 - `loadtests/` - possuir [Python](https://www.python.org/) e rodar `pip install -r requirements.dev.txt` para instalar [Locust](https://locust.io/)
 
@@ -105,18 +99,18 @@ Para cada seção do projeto, definidas por diretórios, há uma atribuição ú
 
 Antes de iniciar com o desenvolvimento e os comandos, é importante definir as variáveis de ambiente no seu ambiente de desenvolvimento. Abaixo a listagem de quais definir:
 
-| Variável                 | Caráter                | Responsabilidade                                                                            |
-| :----------------------- | :--------------------- | :------------------------------------------------------------------------------------------ |
-| `DJANGO_SETTINGS_MODULE` | `str - required`       | Definir o módulo de configurações a ser utilizado.<br>Valor recomendado `CORE.settings.dev` |
-| `DATABASE_NAME`          | `str - optional`       | Definir o nome de acesso do Banco de Dados.<br>Default `postgres`                           |
-| `DATABASE_USER`          | `str - optional`       | Definir o usuário de acesso do Banco de Dados.<br>Default `postgres`                        |
-| `DATABASE_PASSWORD`      | `str - optional`       | Definir a senha de acesso do Banco de Dados.<br>Default `postgres`                          |
-| `DATABASE_HOST`          | `str - optional`       | Definir o host de acesso do Banco de Dados.<br>Default `localhost`                          |
-| `DEBUG`                  | `bool - optional`      | Definir traceback e informações de debug em páginas browser.<br>Default `True`              |
-| `SECRET_KEY`             | `str - optional`       | Definir chave de criptografia e segurança do projeto.<br>Default `cw%t5...ba^m3)`           |
-| `ALLOWED_HOSTS`          | `list[str] - optional` | Definir lista de endereços URL válidos para execução do projeto.<br>Default `['*']`         |
+| Variável                 | Caráter                | Responsabilidade                                                                     |
+| :----------------------- | :--------------------- | :----------------------------------------------------------------------------------- |
+| `DJANGO_SETTINGS_MODULE` | `str - optional`       | Definir o módulo de configurações a ser utilizado.<br>`Default: "CORE.settings.dev"` |
+| `DATABASE_NAME`          | `str - optional`       | Definir o nome de acesso do Banco de Dados.<br>`Default: "postgres"`                 |
+| `DATABASE_USER`          | `str - optional`       | Definir o usuário de acesso do Banco de Dados.<br>`Default: "postgres"`              |
+| `DATABASE_PASSWORD`      | `str - optional`       | Definir a senha de acesso do Banco de Dados.<br>`Default: "postgres"`                |
+| `DATABASE_HOST`          | `str - optional`       | Definir o host de acesso do Banco de Dados.<br>`Default: "localhost"`                |
+| `DEBUG`                  | `bool - optional`      | Definir traceback e informações de debug em páginas browser.<br>`Default: True`      |
+| `SECRET_KEY`             | `str - optional`       | Definir chave de criptografia e segurança do projeto.<br>`Default: "cw%t5...ba^m3)"` |
+| `ALLOWED_HOSTS`          | `list[str] - optional` | Definir lista de endereços URL válidos para execução do projeto.<br>`Default: ['*']` |
 
-### VMAP - `vmap/VMAP/`
+### VMAP - `/VMAP`
 
 #### Realizar Migrações (Atualizações) de Banco de Dados
 
@@ -134,11 +128,15 @@ Antes de iniciar com o desenvolvimento e os comandos, é importante definir as v
 
 `python manager.py runserver`
 
+#### Iniciar o Servidor de Performance de Produção
+
+`gunicorn CORE.wsgi:application --bind 0.0.0.0:8000`
+
 #### Criar Superusuário
 
 `python manage.py createsuperuser`
 
-### Docker - `vmap/`
+### Docker - `/docker`
 
 #### Criar Container Orquestrado
 
@@ -146,7 +144,7 @@ Antes de iniciar com o desenvolvimento e os comandos, é importante definir as v
 ou
 `docker compose -f docker-compose-[dev/unittest] up --build` para `docker-compose-dev.yml` ou `docker-compose-unittest.yml`
 
-### Loadtests - `vmap` - Aplicação Rodando (local ou via docker)
+### Loadtests - `/loadtests` - Aplicação Rodando (local ou via docker)
 
 #### Rodar Teste "Stress"
 
@@ -164,19 +162,15 @@ ou
 
 `locust --headless -f loadtests/spike_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/spike --html report/html/spike.html`
 
-### Docs - `vmap/`
+### Docs - `/docs`
 
 #### Gerar Documentação do DB
 
 `dbdocs login` seguido de `dbdocs build docs/arch/db.dbml`
 
-<br>
-
 ## Licença
 
 This project is under [MPLv2 - Mozilla Public License Version 2.0](https://choosealicense.com/licenses/mpl-2.0/). Permissions of this weak copyleft license are conditioned on making available source code of licensed files and modifications of those files under the same license (or in certain cases, one of the GNU licenses). Copyright and license notices must be preserved. Contributors provide an express grant of patent rights. However, a larger work using the licensed work may be distributed under different terms and without source code for files added in the larger work.
-
-<br>
 
 ## Autores
 
