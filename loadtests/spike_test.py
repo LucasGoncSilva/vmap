@@ -7,8 +7,8 @@ from locust import FastHttpUser, LoadTestShape, TaskSet, constant, task, stats
 from utils import handle_stages
 
 
-stats.PERCENTILES_TO_STATISTICS = [0.5, 0.75, 0.80, 0.90, 0.95, 0.99]
-stats.MODERN_UI_PERCENTILES_TO_CHART = [0.5, 0.75, 0.80, 0.90, 0.95, 0.99]
+stats.PERCENTILES_TO_STATISTICS = [0.5, 0.75, 0.80, 0.85, 0.90, 0.95, 0.99]
+stats.PERCENTILES_TO_CHART = [0.5, 0.75, 0.80, 0.85, 0.90, 0.95, 0.99]
 
 
 class UserTasks(TaskSet):
