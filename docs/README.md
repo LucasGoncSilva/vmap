@@ -78,7 +78,48 @@ A arquitetura pode ser detalhada de forma geral em dois níveis: web e database.
 
 ### VMAP
 
-![Arquitetura do Projeto em caráter global](./arch/web.svg)
+```mermaid
+flowchart LR
+
+
+User((User))
+
+subgraph CLOUD
+    subgraph RENDER
+        LB(Load Balancer):::Arch
+        Dispatcher[Req. Dispatcher]:::Arch
+        Template{{Template}}:::Arch
+        View{View}:::Arch
+        Model{{Model}}:::Arch
+    end
+
+    subgraph SUPABASE
+        Database[(Database)]
+    end
+end
+
+
+Template ~~~ Model
+
+User --> LB --> Dispatcher --> View --> Model
+
+Model -->|Insert / Update| Database
+Model -->|Select| Database
+
+Database --> Model --> View --> Template --> Dispatcher --> LB --> User
+
+
+style CLOUD fill:#17153B,color:#fff,stroke:#ccc;
+style RENDER fill:#2f2841,color:#fff,stroke:#ccc;
+style SUPABASE fill:#2f2841,color:#fff,stroke:#ccc;
+style User fill:#fff,color:#0c4b33,stroke:#0c4b33;
+style Database fill:#fdf,color:#2f2841,stroke:#2f2841;
+
+classDef Arch fill:#0c4b33,color:#efe,stroke:#efe;
+
+linkStyle 1,2,3,4,5,6 stroke:#0f0,color:#0f0,stroke-width:2px
+linkStyle 7,8,9,10,11,12 stroke:#70f,color:#0f0,stroke-width:2px
+```
 
 ### DB
 
