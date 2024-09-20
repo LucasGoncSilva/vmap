@@ -167,3 +167,4 @@ orchestrator.py
 staticfiles/
 report/**/*.csv
 report/**/*.html
+.ruff_cache/
