@@ -6,9 +6,9 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-app_name: Final[str] = 'home'
+app_name: Final[str] = "home"
 
 
 @login_required
 def index(req: HttpRequest) -> HttpResponse:
-    return render(req, 'home/index.html')
+    return render(req, "home/index.html")

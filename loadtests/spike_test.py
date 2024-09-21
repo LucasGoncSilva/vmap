@@ -14,7 +14,7 @@ stats.PERCENTILES_TO_CHART = [0.5, 0.75, 0.90, 0.95, 0.99]
 class UserTasks(TaskSet):
     @task
     def get_root(self) -> None:
-        self.client.get('/')
+        self.client.get("/")
 
 
 class WebsiteUser(FastHttpUser):
@@ -24,13 +24,13 @@ class WebsiteUser(FastHttpUser):
 
 class SpikeTest(LoadTestShape):
     stages = [
-        {'duration': '10s', 'users': 100, 'spawn_rate': 10},
-        {'duration': '1m', 'users': 100, 'spawn_rate': 10},
-        {'duration': '10s', 'users': 1500, 'spawn_rate': 140},
-        {'duration': '5m', 'users': 1500, 'spawn_rate': 140},
-        {'duration': '10s', 'users': 100, 'spawn_rate': 140},
-        {'duration': '15m', 'users': 100, 'spawn_rate': 10},
-        {'duration': '10s', 'users': 0, 'spawn_rate': 1},
+        {"duration": "10s", "users": 100, "spawn_rate": 10},
+        {"duration": "1m", "users": 100, "spawn_rate": 10},
+        {"duration": "10s", "users": 1500, "spawn_rate": 140},
+        {"duration": "5m", "users": 1500, "spawn_rate": 140},
+        {"duration": "10s", "users": 100, "spawn_rate": 140},
+        {"duration": "15m", "users": 100, "spawn_rate": 10},
+        {"duration": "10s", "users": 0, "spawn_rate": 1},
     ]
 
     def tick(self) -> tuple | None:
@@ -39,8 +39,8 @@ class SpikeTest(LoadTestShape):
         stages = handle_stages(self.stages.copy())
 
         for stage in stages:
-            if run_time < stage['duration']:
-                tick_data = (stage['users'], stage['spawn_rate'])
+            if run_time < stage["duration"]:
+                tick_data = (stage["users"], stage["spawn_rate"])
                 return tick_data
 
         return None

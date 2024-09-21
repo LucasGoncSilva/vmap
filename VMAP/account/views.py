@@ -5,8 +5,8 @@ from django.shortcuts import render
 
 
 # Create your views here
-app_name: Final[str] = 'account'
+app_name: Final[str] = "account"
 
 
 def login(req: HttpRequest) -> HttpResponse:
-    return render(req, 'account/login.html')
+    return render(req, "account/login.html")

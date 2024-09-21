@@ -14,7 +14,7 @@ stats.PERCENTILES_TO_CHART = [0.5, 0.75, 0.90, 0.95, 0.99]
 class UserTasks(TaskSet):
     @task
     def get_root(self) -> None:
-        self.client.get('/')
+        self.client.get("/")
 
 
 class WebsiteUser(FastHttpUser):
@@ -24,15 +24,15 @@ class WebsiteUser(FastHttpUser):
 
 class StressTest(LoadTestShape):
     stages = [
-        {'duration': '2m', 'users': 150, 'spawn_rate': 21 / 5},
-        {'duration': '5m', 'users': 150, 'spawn_rate': 21 / 5},
-        {'duration': '2m', 'users': 200, 'spawn_rate': 21 / 5},
-        {'duration': '5m', 'users': 200, 'spawn_rate': 21 / 5},
-        {'duration': '2m', 'users': 250, 'spawn_rate': 21 / 5},
-        {'duration': '5m', 'users': 250, 'spawn_rate': 21 / 5},
-        {'duration': '2m', 'users': 300, 'spawn_rate': 21 / 5},
-        {'duration': '5m', 'users': 300, 'spawn_rate': 21 / 5},
-        {'duration': '10m', 'users': 0, 'spawn_rate': 5},
+        {"duration": "2m", "users": 150, "spawn_rate": 21 / 5},
+        {"duration": "5m", "users": 150, "spawn_rate": 21 / 5},
+        {"duration": "2m", "users": 200, "spawn_rate": 21 / 5},
+        {"duration": "5m", "users": 200, "spawn_rate": 21 / 5},
+        {"duration": "2m", "users": 250, "spawn_rate": 21 / 5},
+        {"duration": "5m", "users": 250, "spawn_rate": 21 / 5},
+        {"duration": "2m", "users": 300, "spawn_rate": 21 / 5},
+        {"duration": "5m", "users": 300, "spawn_rate": 21 / 5},
+        {"duration": "10m", "users": 0, "spawn_rate": 5},
     ]
 
     def tick(self) -> tuple | None:
@@ -41,8 +41,8 @@ class StressTest(LoadTestShape):
         stages = handle_stages(self.stages.copy())
 
         for stage in stages:
-            if run_time < stage['duration']:
-                tick_data = (stage['users'], stage['spawn_rate'])
+            if run_time < stage["duration"]:
+                tick_data = (stage["users"], stage["spawn_rate"])
                 return tick_data
 
         return None

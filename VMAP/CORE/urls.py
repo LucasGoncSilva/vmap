@@ -6,6 +6,6 @@ urlpatterns: list[URLResolver] = [
     # Admin's routes
     path("admin/", admin.site.urls),
     # User's routes
-    path('', include('home.urls')),
-    path('conta/', include('account.urls')),
+    path("", include("home.urls")),
+    path("conta/", include("account.urls")),
 ]

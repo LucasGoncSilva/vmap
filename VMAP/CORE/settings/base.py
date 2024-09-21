@@ -127,8 +127,8 @@ DEFAULT_AUTO_FIELD: Final[str] = "django.db.models.BigAutoField"
 
 
 # User Model
-LOGIN_URL:Final[str] = '/conta'
-LOGOUT_REDIRECT_URL: Final[str] = '/conta'
+LOGIN_URL: Final[str] = "/conta"
+LOGOUT_REDIRECT_URL: Final[str] = "/conta"
 """
 AUTH_USER_MODEL: str = 'account.User'
 
