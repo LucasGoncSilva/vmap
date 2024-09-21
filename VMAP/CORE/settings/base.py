@@ -31,6 +31,7 @@ INSTALLED_APPS: Final[list[str]] = [
     "whitenoise",
     # Local
     "account",
+    "home",
 ]
 
 MIDDLEWARE: Final[list[str]] = [
@@ -124,10 +125,12 @@ STATICFILES_STORAGE: Final[str] = (
 
 DEFAULT_AUTO_FIELD: Final[str] = "django.db.models.BigAutoField"
 
-"""
+
 # User Model
+LOGIN_URL:Final[str] = '/conta'
+LOGOUT_REDIRECT_URL: Final[str] = '/conta'
+"""
 AUTH_USER_MODEL: str = 'account.User'
-LOGOUT_REDIRECT_URL: str = 'conta/entrar'
 
 
 # E-mail configs
