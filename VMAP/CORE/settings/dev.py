@@ -8,6 +8,7 @@ from CORE.settings.base import *
 
 load_dotenv()
 
+
 # docker run --name psql_vmap -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -d postgres
 DATABASES: dict[str, dict[str, str | Path]] = {
     "default": {
@@ -20,5 +21,6 @@ DATABASES: dict[str, dict[str, str | Path]] = {
     }
 }
 
+INSTALLED_APPS += ['django_extensions']
 DEBUG: bool = bool(getenv("DEBUG", DEBUG))
 SECRET_KEY: str = getenv("SECRET_KEY", SECRET_KEY)
