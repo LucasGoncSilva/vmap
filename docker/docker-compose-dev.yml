@@ -11,6 +11,7 @@ services:
     command: >
       bash -c "
       pip install tblib django-extensions
+      && python manage.py collectstatic --noinput
       && python manage.py makemigrations
       && python manage.py migrate
       && gunicorn CORE.wsgi:application --bind 0.0.0.0:8000"
