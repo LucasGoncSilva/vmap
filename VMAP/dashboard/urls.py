@@ -4,9 +4,8 @@ from django.urls import URLPattern, path
 
 from . import views
 
-app_name: Final[str] = "account"
+app_name: Final[str] = "dashboard"
 
 urlpatterns: list[URLPattern] = [
-    path("", views.login, name="empty_login"),
-    path("login", views.login, name="login"),
+    path("", views.index, name="index"),
 ]

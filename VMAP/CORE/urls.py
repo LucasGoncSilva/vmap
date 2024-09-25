@@ -9,4 +9,5 @@ urlpatterns: list[URLResolver] = [
     path("", include("home.urls")),
     path("conta/", include("account.urls")),
     path("sobre", include("about.urls")),
+    path("dashboard", include("dashboard.urls")),
 ]

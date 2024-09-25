@@ -33,6 +33,7 @@ INSTALLED_APPS: Final[list[str]] = [
     "about",
     "account",
     "home",
+    "dashboard",
 ]
 
 MIDDLEWARE: Final[list[str]] = [

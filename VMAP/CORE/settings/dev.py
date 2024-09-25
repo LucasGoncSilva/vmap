@@ -28,6 +28,6 @@ DATABASES: dict[str, dict[str, str | Path]] = {
     }
 }
 
-INSTALLED_APPS += ['django_extensions']
+INSTALLED_APPS += ["django_extensions"]
 DEBUG: bool = bool(getenv("DEBUG", DEBUG))
 SECRET_KEY: str = getenv("SECRET_KEY", SECRET_KEY)
