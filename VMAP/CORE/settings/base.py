@@ -30,6 +30,7 @@ INSTALLED_APPS: Final[list[str]] = [
     # 3rd Party
     "whitenoise",
     # Local
+    "about",
     "account",
     "home",
 ]

@@ -8,4 +8,5 @@ urlpatterns: list[URLResolver] = [
     # User's routes
     path("", include("home.urls")),
     path("conta/", include("account.urls")),
+    path("sobre", include("about.urls")),
 ]
