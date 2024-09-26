@@ -155,59 +155,108 @@ Antes de iniciar com o desenvolvimento e os comandos, é importante definir as v
 
 #### Realizar Migrações (Atualizações) de Banco de Dados
 
-`python manager.py makemigrations`
+```bash
+python manage.py makemigrations
+```
 
 #### Atualizar Estrutura do Banco de Dados com Novas Migrações
 
-`python manager.py migrate`
+```bash
+python manage.py migrate
+```
+
+#### Coletar Arquivos Estáticos
+
+```bash
+python manage.py collectstatic --no-input
+```
 
 #### Iniciar Testes Automatizados
 
-`python manager.py test`
+```bash
+python manage.py test
+```
+
+#### Formatar Arquivos e Diretórios
+
+```bash
+ruff check --select I --fix
+ruff format
+```
 
 #### Iniciar o Servidor de Desenvolvimento
 
-`python manager.py runserver`
+```bash
+python manage.py runserver
+```
 
 #### Iniciar o Servidor de Performance de Produção
 
-`gunicorn CORE.wsgi:application --bind 0.0.0.0:8000`
+```bash
+gunicorn CORE.wsgi:application --bind 0.0.0.0:8000
+```
 
 #### Criar Superusuário
 
-`python manage.py createsuperuser`
+```bash
+python manage.py createsuperuser
+```
 
 ### Docker - `/docker`
 
 #### Criar Container Orquestrado
 
-`docker compose up --build` para `docker-compose.yml`
+```bash
+docker compose up --build  #  para "docker-compose.yml"
+```
 ou
-`docker compose -f docker-compose-[dev/unittest] up --build` para `docker-compose-dev.yml` ou `docker-compose-unittest.yml`
+
+```bash
+docker compose -f docker-compose-[dev/unittest] up --build  #  para "docker-compose-dev.yml" ou "docker-compose-unittest.yml"
+```
 
 ### Loadtests - `/loadtests` - Aplicação Rodando (local ou via docker)
 
 #### Rodar Teste "Stress"
 
-`locust --headless -f loadtests/stress_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/stress --html report/html/stress.html`
+```bash
+locust --headless -f loadtests/stress_test.py \
+-H http://localhost:8000 --processes -1 \
+--csv report/csv/load/stress --html report/html/stress.html
+```
 
 #### Rodar Teste "Load"
 
-`locust --headless -f loadtests/load_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/load --html report/html/load.html`
+```bash
+locust --headless -f loadtests/load_test.py \
+-H http://localhost:8000 --processes -1 \
+--csv report/csv/load/load --html report/html/load.html
+```
 
 #### Rodar Teste "Soak"
 
-`locust --headless -f loadtests/soak_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/soak --html report/html/soak.html`
+```bash
+locust --headless -f loadtests/soak_test.py \
+-H http://localhost:8000 --processes -1 \
+--csv report/csv/load/soak --html report/html/soak.html
+```
 
 #### Rodar Teste "Spike"
 
-`locust --headless -f loadtests/spike_test.py -H http://localhost:8000 --processes -1 --csv report/csv/load/spike --html report/html/spike.html`
+```bash
+locust --headless -f loadtests/spike_test.py \
+-H http://localhost:8000 --processes -1 \
+--csv report/csv/load/spike --html report/html/spike.html
+```
 
 ### Docs - `/docs`
 
 #### Gerar Documentação do DB
 
-`dbdocs login` seguido de `dbdocs build docs/arch/db.dbml`
+```bash
+dbdocs login
+dbdocs build docs/arch/db.dbml
+```
 
 ## Licença
 
@@ -219,7 +268,7 @@ This project is under [MPLv2 - Mozilla Public License Version 2.0](https://choos
   <tr>
     <td align="center">
       <a href="https://github.com/LucasGoncSilva" title="GitHub">
-        <img style="border-radius: 50%;" src="https://picsum.photos/200" width="100px;" alt=""/>
+        <img style="border-radius: 50%;" src="https://picsum.photos/200" alt=""/>
         <br>
         <b>Daniboy</b>
       </a>
@@ -229,7 +278,7 @@ This project is under [MPLv2 - Mozilla Public License Version 2.0](https://choos
     <td style="width: 70ch;">Se ser o cara que decide for um crime, prenda-o por tal delito. O menino Daniel é o eleito líder, PO, quem decide o que ninguém consegue. Um n*gão de tirar o chapéu.</td>
     <td align="center">
       <a href="https://github.com/andersonjader0" title="GitHub">
-        <img style="border-radius: 50%;" src="https://github.com/andersonjader0.png?size=100" width="100px;" alt=""/>
+        <img style="border-radius: 50%;" src="https://github.com/andersonjader0.png?size=100" alt=""/>
         <br>
         <b>Show</b>
       </a>
@@ -240,18 +289,8 @@ This project is under [MPLv2 - Mozilla Public License Version 2.0](https://choos
   </tr>
   <tr>
     <td align="center">
-      <a href="https://github.com/LucasGoncSilva" title="GitHub">
-        <img style="border-radius: 50%;" src="https://github.com/LucasGoncSilva.png?size=100" width="100px;" alt=""/>
-        <br>
-        <b>Goncas</b>
-      </a>
-      <br>
-      <sub><a href="https://www.linkedin.com/in/luksgonc/" title="LinkedIn">LinkedIn</a></sub>
-    </td>
-    <td style="width: 70ch;">Responsável pela maior parte das tarefas administrativas, é como o faxineiro-secretário, contribuiu com a estrutura do projeto e o Back-end da plataforma.</td>
-    <td align="center">
       <a href="https://github.com/Vinefonseca" title="GitHub">
-        <img style="border-radius: 50%;" src="https://github.com/Vinefonseca.png?size=100" width="100px;" alt=""/>
+        <img style="border-radius: 50%;" src="https://github.com/Vinefonseca.png?size=100" alt=""/>
         <br>
         <b>Vine</b>
       </a>
@@ -259,5 +298,15 @@ This project is under [MPLv2 - Mozilla Public License Version 2.0](https://choos
       <sub><a href="https://www.linkedin.com/in/vin%C3%ADcius-fonseca-barbosa-230147245/" title="LinkedIn">LinkedIn</a></sub>
     </td>
     <td style="width: 70ch;">A.K.A Vicinius, foi o arquiteto do Banco de Dados, autor da logo e maior opinador crítico, também o maior motivador da equipe (quando ele mesmo motivado).</td>
+    <td align="center">
+      <a href="https://github.com/LucasGoncSilva" title="GitHub">
+        <img style="border-radius: 50%;" src="https://github.com/LucasGoncSilva.png?size=100" alt=""/>
+        <br>
+        <b>Goncas</b>
+      </a>
+      <br>
+      <sub><a href="https://www.linkedin.com/in/luksgonc/" title="LinkedIn">LinkedIn</a></sub>
+    </td>
+    <td style="width: 70ch;">Responsável pela maior parte das tarefas administrativas, é como o faxineiro-secretário, contribuiu com a estrutura do projeto e o Back-end da plataforma.</td>
   </tr>
 </table>
