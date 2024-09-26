@@ -11,7 +11,6 @@ class AboutViewTestCase(TestCase):
         User.objects.create_user(
             username="user",
             password="password",
-            email="user@email.com",
         )
 
         self.ENDPOINT: str = "about:index"
