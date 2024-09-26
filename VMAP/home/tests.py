@@ -1,3 +1,5 @@
+from typing import Final
+
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -7,14 +9,14 @@ from django.urls import reverse
 
 # Create your tests here.
 class HomeViewTestCase(TestCase):
+    ENDPOINT: Final[str] = "home:index"
+    TEMPLATE: Final[str] = "home/index.html"
+
     def setUp(self) -> None:
         User.objects.create_user(
             username="user",
             password="password",
         )
-
-        self.ENDPOINT: str = "home:index"
-        self.TEMPLATE: str = "home/index.html"
 
     def test_GET_anonymous_user(self) -> None:
         """GET / | anonymous user"""

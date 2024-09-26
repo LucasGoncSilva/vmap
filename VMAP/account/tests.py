@@ -1,3 +1,5 @@
+from typing import Final
+
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -7,21 +9,21 @@ from django.urls import reverse
 
 # Create your tests here.
 class BaseViewTestCase(TestCase):
+    REGISTER_ENDPOINT: Final[str] = "account:register"
+    LOGIN_ENDPOINT: Final[str] = "account:login"
+    ALT_LOGIN_ENDPOINT: Final[str] = "account:empty_login"
+    LOGOUT_ENDPOINT: Final[str] = "account:logout"
+
+    REGISTER_TEMPLATE: Final[str] = "account/register.html"
+    LOGIN_TEMPLATE: Final[str] = "account/login.html"
+    LOGOUT_TEMPLATE: Final[str] = "account/logout.html"
+    HOME_TEMPLATE: Final[str] = "home/index.html"
+
     def setUp(self) -> None:
         User.objects.create_user(
             username="user",
             password="password",
         )
-
-        self.REGISTER_ENDPOINT: str = "account:register"
-        self.LOGIN_ENDPOINT: str = "account:login"
-        self.ALT_LOGIN_ENDPOINT: str = "account:empty_login"
-        self.LOGOUT_ENDPOINT: str = "account:logout"
-
-        self.REGISTER_TEMPLATE: str = "account/register.html"
-        self.LOGIN_TEMPLATE: str = "account/login.html"
-        self.LOGOUT_TEMPLATE: str = "account/logout.html"
-        self.HOME_TEMPLATE: str = "home/index.html"
 
 
 class RegisterViewTestCase(BaseViewTestCase):
