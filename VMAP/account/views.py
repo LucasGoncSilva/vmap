@@ -10,5 +10,6 @@ app_name: Final[str] = "account"
 def login(req: HttpRequest) -> HttpResponse:
     return render(req, "account/login.html")
 
+
 def register(req: HttpRequest) -> HttpResponse:
     return render(req, "account/register.html")
