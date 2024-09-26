@@ -1,10 +1,10 @@
-from django.contrib import admin
+from django.contrib.admin import site as adm_site
 from django.urls import URLResolver, include, path
 
 urlpatterns: list[URLResolver] = [
     # System's routes
     # Admin's routes
-    path("admin/", admin.site.urls),
+    path("admin/", adm_site.urls),
     # User's routes
     path("", include("home.urls")),
     path("conta/", include("account.urls")),
