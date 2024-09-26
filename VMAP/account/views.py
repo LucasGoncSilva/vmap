@@ -1,4 +1,4 @@
-from typing import cast
+from typing import Final, cast
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -8,8 +8,17 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
-
 # Create your views here
+INVALID_PASSWORDS: Final[str] = "Senhas incompatíveis ou menores de 8 caracteres."
+INVALID_EMAIL: Final[str] = "Email inválido."
+INVALID_USERNAME: Final[str] = "Username inválido."
+INVALID_NAMES: Final[str] = "Nome/sobrenome inválidos."
+USER_CREATED: Final[str] = "Usuário criado com sucesso. Informe um ADM para ativá-lo."
+INVALID_CREDENTIALS: Final[str] = "Credenciais inválidas."
+USER_NOT_FOUND: Final[str] = "Usuário não encontrado."
+USER_INACTIVE: Final[str] = "Usuário inativo."
+
+
 def register_view(req: HttpRequest) -> HttpResponse:
     if req.user.is_authenticated:
         return redirect(reverse("home:index"))
@@ -27,20 +36,20 @@ def register_view(req: HttpRequest) -> HttpResponse:
     if not password or not password2 or password != password2 or len(password) < 8:
         error(
             req,
-            "Senhas não conferem com o esperado: incompatíveis ou menores de 8 caracteres.",
+            INVALID_PASSWORDS,
         )
         return render(req, "account/register.html")
 
     elif User.objects.filter(email=email).exists() or email is None:
-        error(req, "Email inválido.")
+        error(req, INVALID_EMAIL)
         return render(req, "account/register.html")
 
     elif User.objects.filter(username=username).exists() or username is None:
-        error(req, "Username inválido.")
+        error(req, INVALID_USERNAME)
         return render(req, "account/register.html")
 
     elif first is None or last is None:
-        error(req, "Nome/sobrenome inválidos.")
+        error(req, INVALID_NAMES)
         return render(req, "account/register.html")
 
     user: User = User.objects.create_user(
@@ -53,7 +62,7 @@ def register_view(req: HttpRequest) -> HttpResponse:
     user.is_active = False
     user.save()
 
-    success(req, "Usuário criado com sucesso. Informe um ADM para ativá-lo.")
+    success(req, USER_CREATED)
     return redirect(reverse("account:login"))
 
 
@@ -68,7 +77,7 @@ def login_view(req: HttpRequest) -> HttpResponse:
     password: str | None = req.POST.get("password")
 
     if username is None or password is None:
-        error(req, "Credenciais inválidas.")
+        error(req, INVALID_CREDENTIALS)
         return render(req, "account/login.html")
 
     user: User | None = cast(
@@ -76,11 +85,11 @@ def login_view(req: HttpRequest) -> HttpResponse:
     )
 
     if user is None:
-        error(req, "Usuário não encontrado.")
+        error(req, USER_NOT_FOUND)
         return render(req, "account/login.html")
 
     elif not user.is_active:
-        warning(req, "Usuário inativo.")
+        warning(req, USER_INACTIVE)
         return render(req, "account/login.html")
 
     login(req, user)
