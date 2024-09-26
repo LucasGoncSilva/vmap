@@ -6,6 +6,4 @@ from . import views
 
 app_name: Final[str] = "dashboard"
 
-urlpatterns: list[URLPattern] = [
-    path("", views.index, name="index"),
-]
+urlpatterns: list[URLPattern] = [path("", views.index, name="index")]
