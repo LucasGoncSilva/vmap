@@ -119,7 +119,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        data = {
+        data: dict[str, str] = {
             "email": "testemail@example.com",
             "first": "First",
             "last": "Last",
@@ -128,9 +128,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         }
 
         res: HttpResponse = self.client.post(
-            reverse(self.REGISTER_ENDPOINT),
-            data=data,
-            follow=True
+            reverse(self.REGISTER_ENDPOINT), data=data, follow=True
         )
 
         # Success response check
@@ -150,7 +148,7 @@ class RegisterViewTestCase(BaseViewTestCase):
 
         self.assertTrue(self.client.login(username="user", password="password"))
 
-        data = {
+        data: dict[str, str] = {
             "email": "testemail@example.com",
             "first": "First",
             "last": "Last",
@@ -159,9 +157,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         }
 
         res: HttpResponse = self.client.post(
-            reverse(self.REGISTER_ENDPOINT),
-            data=data,
-            follow=True
+            reverse(self.REGISTER_ENDPOINT), data=data, follow=True
         )
 
         # Success response check
@@ -178,7 +174,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        data = {
+        data: dict[str, str] = {
             "email": "user",
             "email": "testemail@example.com",
             "first": "First",
@@ -188,9 +184,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         }
 
         res: HttpResponse = self.client.post(
-            reverse(self.REGISTER_ENDPOINT),
-            data=data,
-            follow=True
+            reverse(self.REGISTER_ENDPOINT), data=data, follow=True
         )
 
         # Success response check
@@ -210,7 +204,7 @@ class RegisterViewTestCase(BaseViewTestCase):
 
         self.assertTrue(self.client.login(username="user", password="password"))
 
-        data = {
+        data: dict[str, str] = {
             "email": "user",
             "email": "testemail@example.com",
             "first": "First",
@@ -220,9 +214,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         }
 
         res: HttpResponse = self.client.post(
-            reverse(self.REGISTER_ENDPOINT),
-            data=data,
-            follow=True
+            reverse(self.REGISTER_ENDPOINT), data=data, follow=True
         )
 
         # Success response check
@@ -239,7 +231,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        data = {
+        data: dict[str, str] = {
             "email": "testemail@example.com",
             "username": "usernamename",
             "first": "First",
@@ -249,9 +241,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         }
 
         res: HttpResponse = self.client.post(
-            reverse(self.REGISTER_ENDPOINT),
-            data=data,
-            follow=True
+            reverse(self.REGISTER_ENDPOINT), data=data, follow=True
         )
 
         # Success response check
@@ -271,7 +261,7 @@ class RegisterViewTestCase(BaseViewTestCase):
 
         self.assertTrue(self.client.login(username="user", password="password"))
 
-        data = {
+        data: dict[str, str] = {
             "email": "testemail@example.com",
             "username": "usernamename",
             "first": "First",
@@ -281,9 +271,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         }
 
         res: HttpResponse = self.client.post(
-            reverse(self.REGISTER_ENDPOINT),
-            data=data,
-            follow=True
+            reverse(self.REGISTER_ENDPOINT), data=data, follow=True
         )
 
         # Success response check

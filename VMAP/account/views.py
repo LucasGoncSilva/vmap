@@ -1,11 +1,11 @@
 from typing import cast
 
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.messages import error, success, warning
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
-from django.contrib.messages import error, warning, success
 from django.urls import reverse
 
 
@@ -38,7 +38,7 @@ def register_view(req: HttpRequest) -> HttpResponse:
     elif User.objects.filter(username=username).exists() or username is None:
         error(req, "Username inválido.")
         return render(req, "account/register.html")
-    
+
     elif first is None or last is None:
         error(req, "Nome/sobrenome inválidos.")
         return render(req, "account/register.html")
