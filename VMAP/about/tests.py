@@ -18,7 +18,7 @@ class AboutViewTestCase(TestCase):
         self.TEMPLATE: str = "about/index.html"
 
     def test_GET_anonymous_user(self) -> None:
-        """GET /about | anonymous user"""
+        """GET /sobre | anonymous user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -38,7 +38,7 @@ class AboutViewTestCase(TestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_GET_authenticated_user(self) -> None:
-        """GET /about | authenticated user"""
+        """GET /sobre | authenticated user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -56,7 +56,7 @@ class AboutViewTestCase(TestCase):
         self.assertTrue(get_user(self.client).is_authenticated)
 
     def test_POST_anonymous_user(self) -> None:
-        """POST /about | anonymous user"""
+        """POST /sobre | anonymous user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -78,7 +78,7 @@ class AboutViewTestCase(TestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_POST_authenticated_user(self) -> None:
-        """POST /about | authenticated user"""
+        """POST /sobre | authenticated user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)

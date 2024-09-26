@@ -1,5 +1,3 @@
-from django.test import TestCase
-
 from django.contrib.auth import get_user
 from django.contrib.auth.models import User
 from django.http import HttpResponse
@@ -20,7 +18,7 @@ class HomeViewTestCase(TestCase):
         self.TEMPLATE: str = "home/index.html"
 
     def test_GET_anonymous_user(self) -> None:
-        """GET /home | anonymous user"""
+        """GET / | anonymous user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -40,7 +38,7 @@ class HomeViewTestCase(TestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_GET_authenticated_user(self) -> None:
-        """GET /home | authenticated user"""
+        """GET / | authenticated user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -58,7 +56,7 @@ class HomeViewTestCase(TestCase):
         self.assertTrue(get_user(self.client).is_authenticated)
 
     def test_POST_anonymous_user(self) -> None:
-        """POST /home | anonymous user"""
+        """POST / | anonymous user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -80,7 +78,7 @@ class HomeViewTestCase(TestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_POST_authenticated_user(self) -> None:
-        """POST /home | authenticated user"""
+        """POST / | authenticated user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)

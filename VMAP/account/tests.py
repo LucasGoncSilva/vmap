@@ -23,7 +23,7 @@ class BaseViewTestCase(TestCase):
 
 class RegisterViewTestCase(BaseViewTestCase):
     def test_GET_anonymous_user(self) -> None:
-        """GET /account | anonymous user"""
+        """GET /conta/ | anonymous user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -45,7 +45,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_GET_authenticated_user(self) -> None:
-        """GET /account | authenticated user"""
+        """GET /conta/ | authenticated user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -63,7 +63,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_authenticated)
 
     def test_POST_anonymous_user(self) -> None:
-        """POST /account | anonymous user"""
+        """POST /conta/ | anonymous user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -87,7 +87,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_POST_authenticated_user(self) -> None:
-        """POST /account | authenticated user"""
+        """POST /conta/ | authenticated user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -107,7 +107,7 @@ class RegisterViewTestCase(BaseViewTestCase):
 
 class LoginViewTestCase(BaseViewTestCase):
     def test_GET_anonymous_user(self) -> None:
-        """GET /account | anonymous user"""
+        """GET /conta/ | anonymous user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -127,7 +127,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_GET_authenticated_user(self) -> None:
-        """GET /account | authenticated user"""
+        """GET /conta/ | authenticated user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -145,7 +145,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_authenticated)
 
     def test_POST_anonymous_user(self) -> None:
-        """POST /account | anonymous user"""
+        """POST /conta/ | anonymous user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -169,7 +169,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_POST_authenticated_user(self) -> None:
-        """POST /account | authenticated user"""
+        """POST /conta/ | authenticated user"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -187,7 +187,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_authenticated)
 
     def test_GET_anonymous_user_alt(self) -> None:
-        """GET /account | anonymous user | empty endpoint"""
+        """GET /conta | anonymous user | empty endpoint"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -209,7 +209,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_GET_authenticated_user_alt(self) -> None:
-        """GET /account | authenticated user | empty endpoint"""
+        """GET /conta | authenticated user | empty endpoint"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -227,7 +227,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_authenticated)
 
     def test_POST_anonymous_user_alt(self) -> None:
-        """POST /account | anonymous user | empty endpoint"""
+        """POST /conta | anonymous user | empty endpoint"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
@@ -251,7 +251,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_POST_authenticated_user_alt(self) -> None:
-        """POST /account | authenticated user | empty endpoint"""
+        """POST /conta | authenticated user | empty endpoint"""
 
         # Anonymous user check
         self.assertTrue(get_user(self.client).is_anonymous)
