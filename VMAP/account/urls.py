@@ -2,7 +2,7 @@ from typing import Final
 
 from django.urls import URLPattern, path
 
-from . import views
+from account import views
 
 app_name: Final[str] = "account"
 

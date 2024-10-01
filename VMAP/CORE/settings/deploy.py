@@ -2,9 +2,8 @@
 
 from os import getenv
 
-from dj_database_url import parse
-
 from CORE.settings.base import *
+from dj_database_url import parse
 
 DATABASES = {"default": parse(str(getenv("DATABASE_URL")))}
 
