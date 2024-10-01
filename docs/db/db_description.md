@@ -1,10 +1,4 @@
-// Use DBML to define your database structure
-// Docs: https://dbml.dbdiagram.io/docs
-
-
-Project VMAP {
-  database_type: 'PostgreSQL'
-  Note: '''# VMAP: Arquitetura do Banco de Dados
+# VMAP: Arquitetura do Banco de Dados
 
 Trabalhando nas atualizações semanais dos sistemas, quatro indivíduos perceberam a necessidade de possuir um registro eficiente para documentar as deploys e as tarefas de cada deploy, tanto o que é aprovado quanto o que, por algum problema, volta para desenvolvimento. Após a ideia do internamente eleito PO do projeto Daniel, nasceu o VMAP.
 
@@ -91,76 +85,4 @@ O VMAP não faz uso da desnormalização, porquanto a performance do Postgres en
 
 O uso de índices em chaves primárias e estrangeiras acelera as operações de leitura. As consultas são projetadas para aproveitar esses índices, evitando full table scans sempre que possível.
 
-Quanto às transações, o PostgreSQL é perfeitamente capaz de garantir com excelência os quatro atributos ACID: atomicidade, consistência, isolamento e durabilidade. Isso é crítico para operações que envolvem múltiplas tabelas e para a manutenção da integridade dos dados em cenários de concorrência'''
-}
-
-Table System { 
-  ID smallint [pk, unique, not null, increment, note: 'ID da tabela']
-  name varchar(6) [unique, not null, note: 'Nome do sistema']
-  
-  Note: '''
-    OE
-    SAEC
-    PH
-    WSOE
-    WSSAEC
-    ...'''
-}
-
-Table Project {
-  ID smallint [pk, unique, not null, increment, note: 'ID da tabela']
-  name varchar(6) [unique, not null, note: 'Nome do projeto']
-
-  Note: '''
-    Financ
-    SIPE
-    Terras
-    ...'''
-}
-
-Table PBI {
-  ID integer [pk, unique, not null, increment, note: 'ID da tabela']
-  number integer [unique, not null, note: 'Número da PBI no VSTS']
-  name varchar(128) [unique, not null, note: 'Nome da PBI no VSTS']
-  project_id smallint [ref: < Project.ID, not null, note: 'ID do projeto na tabela "Project"']
-  feature bool [note: '''
-    0 - Deploy
-    1 - Sustentação  ''']
-
-  Note: 'Cada PBI de cada Deploy será cadastrada aqui'
-}
-
-Table Deploy {
-  ID integer [pk, unique, not null, increment, note: 'ID da tabela']
-  deploy_date datetime [not null, note: 'Data que ocorreu a deploy']
-
-  Note: 'Cada deploy será cadastrada aqui junto à sua data'
-}
-
-Table Status {
-  ID smallint [pk, unique, not null, increment, note: 'ID da tabela']
-  Status varchar(8) [not null, note:'''
-    1 - Aprovada
-    2 - Rollback
-    3 - Ajuste''']
-
-  Note: 'Determina os status que uma PBI pode assumir em uma Deploy'
-}
-
-Table Deploy_PBI {
-  ID integer [pk, unique, not null, increment, note: 'ID da tabela']
-  deploy_id integer [ref: < Deploy.ID, not null, note: 'ID da deploy na tabela "Deploy"']
-  pbi_id integer [ref: < PBI.ID, not null, note: 'ID da PBI na tabela "PBI"']
-  status_id smallint [ref: < Status.ID, not null, note: 'ID do resultado na tabela "Status"']
-  comment varchar(300) [note: 'Comentário opcional sobre determinada PBI em determinada deploy']
-
-  Note: 'Associa cada Deploy às suas PBIs'
-}
-
-Table PBI_System {
-  ID integer [pk, unique, not null, increment, note: 'ID da tabela']
-  pbi_id integer [ref: <> PBI.ID, not null, note: 'ID da PBI na tabela "PBI"']
-  system_id integer [ref:<> System.ID, not null, note: 'ID do sistema na tabela "System"']
-
-  Note: 'Associa PBIs e sistemas'
-}
+Quanto às transações, o PostgreSQL é perfeitamente capaz de garantir com excelência os quatro atributos ACID: atomicidade, consistência, isolamento e durabilidade. Isso é crítico para operações que envolvem múltiplas tabelas e para a manutenção da integridade dos dados em cenários de concorrência

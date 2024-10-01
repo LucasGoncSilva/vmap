@@ -1,0 +1,29 @@
+name: Database Documentation Update
+
+on:
+  push:
+    branches: [main]
+
+env:
+  DBDOCS_TOKEN: ${{ secrets.DBDOCS_TOKEN }}
+
+jobs:
+  doc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Install Python and Pip
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.12"
+
+      - name: Install dbdocs
+        run: sudo npm install -g dbdocs
+
+      - name: Check dbdocs
+        run: dbdocs
+
+      - name: Update dbdocs project
+        run: cd docs/db; python generate_dbml.py

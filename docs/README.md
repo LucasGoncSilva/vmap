@@ -123,7 +123,7 @@ linkStyle 7,8,9,10,11,12 stroke:#70f,color:#0f0,stroke-width:2px
 
 ### DB
 
-![Arquitetura do Banco de Dados](./arch/db.png)
+![Arquitetura do Banco de Dados](./db/db.png)
 
 **OBS: para mais detalhes sobre o Banco de Dados acesse [Detalhes do Banco de Dados](https://dbdocs.io/lucasgoncsilva04/VMAP)**
 
@@ -256,7 +256,7 @@ locust --headless -f loadtests/spike_test.py \
 
 ```bash
 dbdocs login
-dbdocs build docs/arch/db.dbml
+dbdocs build docs/db/schema.dbml
 ```
 
 ## Licença
