@@ -209,6 +209,7 @@ python manage.py createsuperuser
 ```bash
 docker compose up --build  #  para "docker-compose.yml"
 ```
+
 ou
 
 ```bash
@@ -268,7 +269,7 @@ This project is under [MPLv2 - Mozilla Public License Version 2.0](https://choos
   <tr>
     <td align="center">
       <a href="https://github.com/LucasGoncSilva" title="GitHub">
-        <img style="border-radius: 50%;" src="https://picsum.photos/200" alt=""/>
+        <img style="border-radius: 50%;" src="https://picsum.photos/100" alt=""/>
         <br>
         <b>Daniboy</b>
       </a>

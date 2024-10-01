@@ -6,3 +6,4 @@ ruff
 tblib
 coverage
 django-extensions
+django-debug-toolbar

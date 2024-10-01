@@ -7,7 +7,7 @@ services:
       - ../VMAP:/app
     command: >
       bash -c "
-      pip install tblib django-extensions
+      pip install tblib django-extensions django-debug-toolbar
       && python manage.py collectstatic --noinput
       && python manage.py makemigrations
       && python manage.py migrate
