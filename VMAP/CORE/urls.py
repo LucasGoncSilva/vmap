@@ -1,8 +1,8 @@
 from os import environ as env
 
+from debug_toolbar.toolbar import debug_toolbar_urls
 from django.contrib.admin import site as adm_site
 from django.urls import URLResolver, include, path
-from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns: list[URLResolver] = [
     # System's routes
@@ -15,5 +15,5 @@ urlpatterns: list[URLResolver] = [
     path("dashboard", include("dashboard.urls")),
 ]
 
-if env.get('DJANGO_SETTINGS_MODULE') == "CORE.settings.dev":
+if env.get("DJANGO_SETTINGS_MODULE") == "CORE.settings.dev":
     urlpatterns += debug_toolbar_urls()

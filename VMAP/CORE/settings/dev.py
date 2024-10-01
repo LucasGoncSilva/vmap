@@ -2,9 +2,8 @@
 
 from os import getenv
 
-from dotenv import load_dotenv
-
 from CORE.settings.base import *
+from dotenv import load_dotenv
 
 load_dotenv()
 
@@ -28,7 +27,10 @@ DATABASES: dict[str, dict[str, str | Path]] = {
     }
 }
 
-INSTALLED_APPS += ["django_extensions", "debug_toolbar",]
+INSTALLED_APPS += [
+    "django_extensions",
+    "debug_toolbar",
+]
 DEBUG: bool = bool(getenv("DEBUG", DEBUG))
 SECRET_KEY: str = getenv("SECRET_KEY", SECRET_KEY)
 MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
