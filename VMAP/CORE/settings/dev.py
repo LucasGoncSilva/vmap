@@ -2,8 +2,9 @@
 
 from os import getenv
 
-from CORE.settings.base import *
 from dotenv import load_dotenv
+
+from CORE.settings.base import *
 
 load_dotenv()
 

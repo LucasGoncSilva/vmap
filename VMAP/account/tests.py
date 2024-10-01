@@ -177,7 +177,6 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
         data: dict[str, str] = {
-            "email": "user",
             "email": "testemail@example.com",
             "first": "First",
             "last": "Last",
@@ -207,7 +206,6 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertTrue(self.client.login(username="user", password="password"))
 
         data: dict[str, str] = {
-            "email": "user",
             "email": "testemail@example.com",
             "first": "First",
             "last": "Last",

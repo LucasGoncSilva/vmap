@@ -34,10 +34,7 @@ def register_view(req: HttpRequest) -> HttpResponse:
     password2: str | None = req.POST.get("password2")
 
     if not password or not password2 or password != password2 or len(password) < 8:
-        error(
-            req,
-            INVALID_PASSWORDS,
-        )
+        error(req, INVALID_PASSWORDS)
         return render(req, "account/register.html")
 
     elif User.objects.filter(email=email).exists() or email is None:

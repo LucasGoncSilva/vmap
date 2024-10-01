@@ -1,6 +1,8 @@
 from pathlib import Path
 from typing import Final
 
+from django.contrib.messages import constants as messages
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR: Final[Path] = Path(__file__).resolve().parent.parent.parent
 
@@ -144,8 +146,6 @@ EMAIL_HOST_USER: str = str(environ.get('EMAIL_HOST_USER'))
 EMAIL_HOST_PASSWORD: str = str(environ.get('EMAIL_HOST_PASSWORD'))
 """
 
-
-from django.contrib.messages import constants as messages
 
 # Messages configs
 MESSAGE_TAGS: dict[int, str] = {
