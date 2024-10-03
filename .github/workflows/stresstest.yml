@@ -12,8 +12,8 @@ jobs:
     steps:
       - name: Install Docker Compose
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+          sudo apt update
+          sudo apt install -y docker-compose
 
       - name: Install Python and Pip
         uses: actions/setup-python@v3

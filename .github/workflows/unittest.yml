@@ -27,8 +27,8 @@ jobs:
 
       - name: Install Docker
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker
+          sudo apt update
+          sudo apt install -y docker
 
       - name: Set and Migrate DB
         run: |
