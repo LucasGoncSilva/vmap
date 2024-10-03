@@ -3,7 +3,6 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
 
-# Create your views here.
 @login_required
 def index(req: HttpRequest) -> HttpResponse:
-    return render(req, "home/index.html")
+    return render(req, 'home/index.html')

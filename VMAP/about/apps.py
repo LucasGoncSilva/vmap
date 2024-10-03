@@ -4,5 +4,5 @@ from django.apps import AppConfig
 
 
 class AboutConfig(AppConfig):
-    default_auto_field: Final[str] = "django.db.models.BigAutoField"
-    name: Final[str] = "about"
+    default_auto_field: Final[str] = 'django.db.models.BigAutoField'
+    name: Final[str] = 'about'

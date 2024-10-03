@@ -7,15 +7,14 @@ from django.test import TestCase
 from django.urls import reverse
 
 
-# Create your tests here.
 class DashboardViewTestCase(TestCase):
-    ENDPOINT: Final[str] = "dashboard:index"
-    TEMPLATE: Final[str] = "dashboard/index.html"
+    ENDPOINT: Final[str] = 'dashboard:index'
+    TEMPLATE: Final[str] = 'dashboard/index.html'
 
     def setUp(self) -> None:
         User.objects.create_user(
-            username="user",
-            password="password",
+            username='user',
+            password='password',
         )
 
     def test_GET_anonymous_user(self) -> None:
@@ -45,7 +44,7 @@ class DashboardViewTestCase(TestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.get(reverse(self.ENDPOINT))
 
@@ -63,12 +62,12 @@ class DashboardViewTestCase(TestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        res: HttpResponse = self.client.post(reverse(self.ENDPOINT), {"DATA": "HERE"})
+        res: HttpResponse = self.client.post(reverse(self.ENDPOINT), {'DATA': 'HERE'})
 
         self.assertEqual(res.status_code, 302)
 
         res: HttpResponse = self.client.post(
-            reverse(self.ENDPOINT), {"DATA": "HERE"}, follow=True
+            reverse(self.ENDPOINT), {'DATA': 'HERE'}, follow=True
         )
 
         # Success response check
@@ -85,7 +84,7 @@ class DashboardViewTestCase(TestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.post(reverse(self.ENDPOINT))
 

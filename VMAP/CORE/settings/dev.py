@@ -5,10 +5,14 @@ from os import getenv
 from CORE.settings.base import *
 from dotenv import load_dotenv
 
+
 load_dotenv()
 
-
-# docker run --name psql_vmap -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -d postgres
+"""
+docker run --name psql_vmap -p 5432:5432 \
+    -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres \
+        -e POSTGRES_DB=postgres -d postgres
+"""
 # DATABASES: dict[str, dict[str, str | Path]] = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
@@ -21,17 +25,17 @@ load_dotenv()
 # }
 
 DATABASES: dict[str, dict[str, str | Path]] = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
 INSTALLED_APPS += [
-    "django_extensions",
-    "debug_toolbar",
+    'django_extensions',
+    'debug_toolbar',
 ]
-DEBUG: bool = bool(getenv("DEBUG", DEBUG))
-SECRET_KEY: str = getenv("SECRET_KEY", SECRET_KEY)
-MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]
-INTERNAL_IPS = ["127.0.0.1"]
+DEBUG: bool = bool(getenv('DEBUG', DEBUG))
+SECRET_KEY: str = getenv('SECRET_KEY', SECRET_KEY)
+MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+INTERNAL_IPS = ['127.0.0.1']

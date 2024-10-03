@@ -7,22 +7,21 @@ from django.test import TestCase
 from django.urls import reverse
 
 
-# Create your tests here.
 class BaseViewTestCase(TestCase):
-    REGISTER_ENDPOINT: Final[str] = "account:register"
-    LOGIN_ENDPOINT: Final[str] = "account:login"
-    ALT_LOGIN_ENDPOINT: Final[str] = "account:empty_login"
-    LOGOUT_ENDPOINT: Final[str] = "account:logout"
+    REGISTER_ENDPOINT: Final[str] = 'account:register'
+    LOGIN_ENDPOINT: Final[str] = 'account:login'
+    ALT_LOGIN_ENDPOINT: Final[str] = 'account:empty_login'
+    LOGOUT_ENDPOINT: Final[str] = 'account:logout'
 
-    REGISTER_TEMPLATE: Final[str] = "account/register.html"
-    LOGIN_TEMPLATE: Final[str] = "account/login.html"
-    LOGOUT_TEMPLATE: Final[str] = "account/logout.html"
-    HOME_TEMPLATE: Final[str] = "home/index.html"
+    REGISTER_TEMPLATE: Final[str] = 'account/register.html'
+    LOGIN_TEMPLATE: Final[str] = 'account/login.html'
+    LOGOUT_TEMPLATE: Final[str] = 'account/logout.html'
+    HOME_TEMPLATE: Final[str] = 'home/index.html'
 
     def setUp(self) -> None:
         User.objects.create_user(
-            username="user",
-            password="password",
+            username='user',
+            password='password',
         )
 
 
@@ -56,7 +55,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.get(reverse(self.REGISTER_ENDPOINT))
 
@@ -97,7 +96,7 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.post(reverse(self.REGISTER_ENDPOINT))
 
@@ -122,11 +121,11 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
         data: dict[str, str] = {
-            "email": "testemail@example.com",
-            "first": "First",
-            "last": "Last",
-            "password": "123oliveira4",
-            "password2": "123oliveira4",
+            'email': 'testemail@example.com',
+            'first': 'First',
+            'last': 'Last',
+            'password': '123oliveira4',
+            'password2': '123oliveira4',
         }
 
         res: HttpResponse = self.client.post(
@@ -148,14 +147,14 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         data: dict[str, str] = {
-            "email": "testemail@example.com",
-            "first": "First",
-            "last": "Last",
-            "password": "123oliveira4",
-            "password2": "123oliveira4",
+            'email': 'testemail@example.com',
+            'first': 'First',
+            'last': 'Last',
+            'password': '123oliveira4',
+            'password2': '123oliveira4',
         }
 
         res: HttpResponse = self.client.post(
@@ -177,11 +176,11 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
         data: dict[str, str] = {
-            "email": "testemail@example.com",
-            "first": "First",
-            "last": "Last",
-            "password": "password",
-            "password2": "password",
+            'email': 'testemail@example.com',
+            'first': 'First',
+            'last': 'Last',
+            'password': 'password',
+            'password2': 'password',
         }
 
         res: HttpResponse = self.client.post(
@@ -203,14 +202,14 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         data: dict[str, str] = {
-            "email": "testemail@example.com",
-            "first": "First",
-            "last": "Last",
-            "password": "password",
-            "password2": "password",
+            'email': 'testemail@example.com',
+            'first': 'First',
+            'last': 'Last',
+            'password': 'password',
+            'password2': 'password',
         }
 
         res: HttpResponse = self.client.post(
@@ -232,12 +231,12 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertFalse(get_user(self.client).is_authenticated)
 
         data: dict[str, str] = {
-            "email": "testemail@example.com",
-            "username": "usernamename",
-            "first": "First",
-            "last": "Last",
-            "password": "123oliveira4",
-            "password2": "123oliveira4",
+            'email': 'testemail@example.com',
+            'username': 'usernamename',
+            'first': 'First',
+            'last': 'Last',
+            'password': '123oliveira4',
+            'password2': '123oliveira4',
         }
 
         res: HttpResponse = self.client.post(
@@ -259,15 +258,15 @@ class RegisterViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         data: dict[str, str] = {
-            "email": "testemail@example.com",
-            "username": "usernamename",
-            "first": "First",
-            "last": "Last",
-            "password": "123oliveira4",
-            "password2": "123oliveira4",
+            'email': 'testemail@example.com',
+            'username': 'usernamename',
+            'first': 'First',
+            'last': 'Last',
+            'password': '123oliveira4',
+            'password2': '123oliveira4',
         }
 
         res: HttpResponse = self.client.post(
@@ -306,7 +305,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.get(reverse(self.LOGIN_ENDPOINT))
 
@@ -345,7 +344,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.post(reverse(self.LOGIN_ENDPOINT))
 
@@ -369,7 +368,7 @@ class LoginViewTestCase(BaseViewTestCase):
 
         res: HttpResponse = self.client.post(
             reverse(self.LOGIN_ENDPOINT),
-            data={"username": "user", "password": "password"},
+            data={'username': 'user', 'password': 'password'},
             follow=True,
         )
 
@@ -387,7 +386,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.post(reverse(self.LOGIN_ENDPOINT))
 
@@ -425,7 +424,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.get(reverse(self.ALT_LOGIN_ENDPOINT))
 
@@ -466,7 +465,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.post(reverse(self.ALT_LOGIN_ENDPOINT))
 
@@ -492,7 +491,7 @@ class LoginViewTestCase(BaseViewTestCase):
 
         res: HttpResponse = self.client.post(
             reverse(self.ALT_LOGIN_ENDPOINT),
-            data={"username": "user", "password": "password"},
+            data={'username': 'user', 'password': 'password'},
             follow=True,
         )
 
@@ -510,7 +509,7 @@ class LoginViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.post(reverse(self.ALT_LOGIN_ENDPOINT))
 
@@ -556,7 +555,7 @@ class LogoutViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.get(reverse(self.LOGOUT_ENDPOINT), follow=True)
 
@@ -594,7 +593,7 @@ class LogoutViewTestCase(BaseViewTestCase):
         self.assertTrue(get_user(self.client).is_anonymous)
         self.assertFalse(get_user(self.client).is_authenticated)
 
-        self.assertTrue(self.client.login(username="user", password="password"))
+        self.assertTrue(self.client.login(username='user', password='password'))
 
         res: HttpResponse = self.client.post(reverse(self.LOGOUT_ENDPOINT), follow=True)
 
