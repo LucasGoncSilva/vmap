@@ -14,9 +14,7 @@ def export_db_description() -> None:
     struct: Final[str] = f"{proj} {{\n\t{db_type}: '{db}'\n\tNote: '''{otpt}'''}}\n\n"
 
     with open('schema.dbml', 'w') as f:
-        f.write(
-            '// Docs: https://dbml.dbdiagram.io/docs\n\n'
-        )
+        f.write('// Docs: https://dbml.dbdiagram.io/docs\n\n')
 
         f.write(struct)
 
