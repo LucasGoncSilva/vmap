@@ -561,10 +561,10 @@ class LogoutViewTestCase(BaseViewTestCase):
 
         # Success response check
         self.assertEqual(res.status_code, 200)
-        self.assertTemplateUsed(res, self.HOME_TEMPLATE)
-        # Logged user check
-        self.assertFalse(get_user(self.client).is_anonymous)
-        self.assertTrue(get_user(self.client).is_authenticated)
+        self.assertTemplateUsed(res, self.LOGIN_TEMPLATE)
+        # Anonymous user check
+        self.assertTrue(get_user(self.client).is_anonymous)
+        self.assertFalse(get_user(self.client).is_authenticated)
 
     def test_POST_anonymous_user(self) -> None:
         """POST /conta/logout | anonymous user"""
