@@ -1,7 +1,32 @@
 {% extends 'shared/base.html' %}
+{% load static %}
+
 
 {% block title %} Cadastro {% endblock %}
 
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'account/register/css/style.css' %}">
+{% endblock %}
+
+
 {% block body %}
-Register Page
+<section class="main-left">
+    <h1>VMAP</h1>
+    <p>Já possui uma conta?</p>
+    <a href="{% url 'account:login' %}">Login</a>
+</section>
+
+<section class="main-right">
+    <h2>Cadastro</h2>
+    <p>Para se cadastrar informe seus dados abaixo:</p>
+
+    <form action="">
+        <label class="label_text"><input name="name" type="text" class="text" placeholder="Nome"></label>
+        <label class="label_email"><input name="email" class="email" type="email" placeholder="Email"></label>
+        <label class="label_password"><input name="password" class="password" type="password" placeholder="Senha"></label>
+        <label class="label_password"><input name="password2" class="password" type="password" placeholder="Confirmar Senha"></label>
+        <label for=""><input class="button" type="submit" value="Confirmar"></label>
+    </form>
+</section>
 {% endblock %}

@@ -95,8 +95,5 @@ def login_view(req: HttpRequest) -> HttpResponse:
 
 @login_required
 def logout_view(req: HttpRequest) -> HttpResponse:
-    if req.method != 'POST':
-        return redirect(reverse('home:index'))
-
     logout(req)
     return redirect(reverse('account:login'))

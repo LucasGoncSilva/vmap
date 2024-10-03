@@ -1,7 +1,32 @@
-{% extends 'shared/base.html' %}
+{% extends 'shared/logged.html' %}
+{% load static %}
+
 
 {% block title %} Home {% endblock %}
 
-{% block body %}
-Home Page
+
+{% block logged_head %}
+<link rel="stylesheet" href="{% static 'home/css/style.css' %}">
+{% endblock %}
+
+
+{% block logged_body %}
+<section>
+    <content class="main-content">
+        <h1>VMAP</h1>
+        <p>Visibilidade e Controle Para PBIs e Deploys.</p>
+
+        <section class="buttons">
+            <a href="#">Nova Deploy</a>
+            <a href="#">Listar Deploys</a>
+        </section>
+
+        <section class="options-content">
+            <div>option 1</div>
+            <div>option 2</div>
+            <div>option 3</div>
+            <div>option 4</div>
+        </section>
+    </content>
+</section>
 {% endblock %}

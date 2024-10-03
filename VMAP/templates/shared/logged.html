@@ -1,0 +1,101 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+
+{% block head %}
+<style>
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    ul {
+        list-style: none;
+        margin: 20px 30px 20px 30px;
+    }
+
+    .logo {
+        display: flex;
+        flex-direction: line;
+        align-items: center;
+        justify-content: space-around;
+        width: 10%;
+    }
+
+    .logo-vmap {
+        display: flex;
+        align-items: center;
+        height: 60px;
+        width: 70px;
+        margin-right: 5px;
+    }
+
+    .logo li {
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .features {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .features li {
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .features li a {
+        text-decoration: none;
+    }
+
+    .fa-circle-xmark {
+        margin-right: 10px;
+    }
+
+    .exit {
+        width: 10%;
+        text-align: center;
+    }
+
+    .exit a {
+        padding: 10px 40px;
+        background-color: #cc2f37;
+        border: none;
+        border-radius: 100px;
+        transition: 200ms;
+        text-decoration: none;
+    }
+
+    .exit a:hover {
+        background-color: #aa0715;
+    }
+</style>
+
+{% block logged_head %}
+{% endblock %}
+
+{% endblock %}
+
+
+{% block body %}
+<header>
+    <ul class="logo">
+        <li><a href="{% url 'home:index' %}"><img src="{% static 'shared/img/logo.svg' %}" class="logo-vmap"></a></li>
+    </ul>
+
+    <ul class="features">
+        <li><a href="https://github.com/LucasGoncSilva/vmap">...</a></li>
+        <li><a href="https://github.com/LucasGoncSilva/vmap">...</a></li>
+        <li><a href="https://github.com/LucasGoncSilva/vmap">GitHub</a></li>
+        <li><a href="{% url 'about:index' %}">Sobre</a></li>
+    </ul>
+
+    <ul class="exit">
+        <a href="{% url 'account:logout' %}">Sair</a>
+    </ul>
+</header>
+{% block logged_body %}
+{% endblock %}
+{% endblock %}

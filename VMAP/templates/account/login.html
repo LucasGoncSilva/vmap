@@ -1,7 +1,31 @@
 {% extends 'shared/base.html' %}
+{% load static %}
+
 
 {% block title %} Login {% endblock %}
 
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'account/login/css/style.css' %}">
+{% endblock %}
+
+
 {% block body %}
-Login Page
+<section class="main-left">
+    <h1>VMAP</h1>
+    <p>Ainda não possui uma conta?</p>
+    <a href="{% url 'account:register' %}">Cadastro</a>
+</section>
+
+<section class="main-right">
+    <h2>Acesso</h2>
+    <p>Para acessar informe seus dados abaixo:</p>
+
+    <form action="{% url 'account:login' %}" method="post">
+        <label class="label_text"><input name="username" type="text" class="text" placeholder="Nome de Usuário"></label>
+        <label class="label_password"><input name="password" type="password" class="password"
+                placeholder="Senha de Acesso"></label>
+        <label for=""><input class="button" type="submit" value="Entrar"></label>
+    </form>
+</section>
 {% endblock %}
