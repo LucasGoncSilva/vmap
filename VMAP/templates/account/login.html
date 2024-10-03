@@ -22,10 +22,25 @@
     <p>Para acessar informe seus dados abaixo:</p>
 
     <form action="{% url 'account:login' %}" method="post">
-        <label class="label_text"><input name="username" type="text" class="text" placeholder="Nome de Usuário"></label>
-        <label class="label_password"><input name="password" type="password" class="password"
-                placeholder="Senha de Acesso"></label>
-        <label for=""><input class="button" type="submit" value="Entrar"></label>
+        {% csrf_token %}
+
+        <label class="label_text">
+            <input required name="username" type="text" class="text" placeholder="Nome de Usuário">
+        </label>
+
+        <label class="label_password">
+            <input required name="password" type="password" class="password" placeholder="Senha de Acesso">
+        </label>
+
+        <label for="">
+            <input class="button" type="submit" value="Entrar">
+        </label>
     </form>
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class='alert {{ message.tags }} mt-3 py-2' role='alert'>{{ message }}</div>
+    {% endfor %}
+    {% endif %}
 </section>
 {% endblock %}

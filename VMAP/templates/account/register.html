@@ -21,12 +21,42 @@
     <h2>Cadastro</h2>
     <p>Para se cadastrar informe seus dados abaixo:</p>
 
-    <form action="">
-        <label class="label_text"><input name="name" type="text" class="text" placeholder="Nome"></label>
-        <label class="label_email"><input name="email" class="email" type="email" placeholder="Email"></label>
-        <label class="label_password"><input name="password" class="password" type="password" placeholder="Senha"></label>
-        <label class="label_password"><input name="password2" class="password" type="password" placeholder="Confirmar Senha"></label>
-        <label for=""><input class="button" type="submit" value="Confirmar"></label>
+    <form action="{% url 'account:register' %}" method="post">
+        {% csrf_token %}
+        <label class="label_text">
+            <input required name="first" type="text" class="text" placeholder="Nome">
+        </label>
+
+        <label class="label_text">
+            <input required name="last" type="text" class="text" placeholder="Sobrenome">
+        </label>
+
+        <label class="label_text">
+            <input required name="username" type="text" class="text" placeholder="Nome de Usuário">
+        </label>
+
+        <label class="label_email">
+            <input required name="email" class="email" type="email" placeholder="Email">
+        </label>
+
+        <label class="label_password">
+            <input required name="password" class="password" type="password" placeholder="Senha de Acesso">
+        </label>
+
+        <label class="label_password">
+            <input required name="password2" class="password" type="password" placeholder="Confirmar Senha">
+        </label>
+
+        <label for="">
+            <input class="button" type="submit" value="Confirmar">
+        </label>
     </form>
+
+
+    {% if messages %}
+    {% for message in messages %}
+    <div class='alert {{ message.tags }} mt-3 py-2' role='alert'>{{ message }}</div>
+    {% endfor %}
+    {% endif %}
 </section>
 {% endblock %}
